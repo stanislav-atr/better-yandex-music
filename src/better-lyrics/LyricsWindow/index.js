@@ -1,0 +1,1 @@
+export { LyricsWindow } from './LyricsWindow';

@@ -1,1 +1,1 @@
-export const Seq = window.Seq;
+export const { Seq } = window;

@@ -6,9 +6,9 @@ import { LyricsWindow } from './better-lyrics/LyricsWindow';
 const sequenceApi = window.Seq;
 
 /**
- * 
  *
- * 
+ *
+ *
  */
 export const showLyricsBetter = () => {
     if (!sequenceApi) {
@@ -16,9 +16,6 @@ export const showLyricsBetter = () => {
         return;
     }
     console.log('%cBetter Lyrics started', 'color: green;');
-
-
-
 
     // Render component
     const root = document.createElement('div');

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Rnd } from 'react-rnd';
 
 import { getTrack } from '../../music-api';
@@ -14,7 +14,7 @@ const LyricsWindow = () => {
         justifyContent: 'center',
         border: 'solid 1px #ddd',
         backgroundColor: 'hsla(0, 0%, 9%, 0.90)',
-        zIndex: '1000'
+        zIndex: '1000',
     };
 
     useEffect(() => {
@@ -32,24 +32,23 @@ const LyricsWindow = () => {
     }, []);
 
     return (
-        <>
-            <Rnd
-                style={style}
-                default={{
-                    x: 0,
-                    y: 0,
-                    width: 320,
-                    height: 200
-                }}
+        <Rnd
+            style={style}
+            default={{
+                x: 0,
+                y: 0,
+                width: 320,
+                height: 200,
+            }}
+        >
+            <div
+                className="sidebar-track__lyric-text typo"
+                id="TEST-COMPONENT"
             >
-                <div
-                    className="sidebar-track__lyric-text typo"
-                    id='TEST-COMPONENT'>
-                    <p>{`${lyrics}`}</p>
-                </div>
-            </Rnd>
-        </>
+                <p>{`${lyrics}`}</p>
+            </div>
+        </Rnd>
     );
-};
+}
 
 export { LyricsWindow };

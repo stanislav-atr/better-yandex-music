@@ -10,6 +10,6 @@ import { Seq } from './seq';
 export const removeSeqListener = (event, callback) => {
     const newCallbacksArray = Seq.__eventCallbacks__['track-play'].filter((func) => {
         return typeof func !== 'function' || func.toString() !== callback.toString();
-    })
+    });
     Seq.__eventCallbacks__[event] = newCallbacksArray;
 };

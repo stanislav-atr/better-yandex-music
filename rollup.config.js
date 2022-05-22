@@ -8,24 +8,24 @@ const config = {
     output: [
         {
             file: 'dist/better-music.js',
-            format: 'cjs'
-        }
+            format: 'es',
+        },
     ],
     plugins: [
         resolve({
-            browser: true
+            extensions: ['.js', '.jsx'],
         }),
         commonjs({
             include: /node_modules/,
         }),
         replace({
-            'process.env.NODE_ENV': JSON.stringify( 'production' )
-          }),
+            'process.env.NODE_ENV': JSON.stringify('production'),
+        }),
         babel({
-            exclude: "node_modules/**",
-            presets: ["@babel/preset-react"],
-          }),
-    ]
+            exclude: 'node_modules/**',
+            presets: ['@babel/preset-react'],
+        }),
+    ],
 };
 
 export default config;

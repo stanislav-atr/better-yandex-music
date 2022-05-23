@@ -24,7 +24,7 @@ const LyricsWindow = () => {
             const lyrics = extractLyrics(trackData);
             setLyrics(lyrics);
             const test = lyrics.split('\n');
-            console.log(test);
+            console.log(lyrics);
         };
         addSeqListener('track-play', trackChangeHandler);
 
@@ -49,6 +49,6 @@ const LyricsWindow = () => {
             </div>
         </Rnd>
     );
-}
+};
 
 export { LyricsWindow };

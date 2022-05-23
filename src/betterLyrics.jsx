@@ -1,3 +1,4 @@
+/* eslint-disable no-console, no-undef */
 import React from 'react';
 import ReactDOM from 'react-dom';
 

@@ -23,7 +23,7 @@ const LyricsWindow = () => {
             const trackData = await getTrack(track.id);
             const lyrics = extractLyrics(trackData);
             setLyrics(lyrics);
-            const test = lyrics.split('\n');
+            // const test = lyrics.split('\n');
             console.log(lyrics);
         };
         addSeqListener('track-play', trackChangeHandler);

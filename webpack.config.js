@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
@@ -21,9 +21,9 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: ['@babel/preset-react'],
-                }
-            }
-        ]
+                },
+            },
+        ],
     },
     plugins: [
         new CleanWebpackPlugin(),
@@ -33,4 +33,4 @@ module.exports = {
             ],
         }),
     ],
-}
+};

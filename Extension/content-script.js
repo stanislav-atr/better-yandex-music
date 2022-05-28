@@ -1,4 +1,4 @@
-/* global chrome */
+/* eslint-disable no-undef */
 
 (() => {
     const scriptTag = document.createElement('script');

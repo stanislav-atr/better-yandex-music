@@ -4,13 +4,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
+    entry: './src/better-lyrics/betterLyrics.jsx',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'better-music.js',
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json'],
+        extensions: ['.js', '.jsx'],
         modules: ['src', 'node_modules'],
     },
     module: {
@@ -23,13 +23,17 @@ module.exports = {
                     presets: ['@babel/preset-react'],
                 },
             },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ],
     },
     plugins: [
         new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [
-                { from: './src-extension', to: './' },
+                { from: './Extension', to: './' },
             ],
         }),
     ],

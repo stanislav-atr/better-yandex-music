@@ -2,16 +2,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { LyricsWindow } from './better-lyrics/LyricsWindow';
+import { LyricsWindow } from './LyricsWindow';
 
 const sequenceApi = window.Seq;
 
-/**
- *
- *
- *
- */
-export const showLyricsBetter = () => {
+const showLyricsBetter = () => {
     if (!sequenceApi) {
         console.log('%cBetter Lyrics Exit. Sequence api is not ready', 'color: red;');
         return;
@@ -32,3 +27,5 @@ export const showLyricsBetter = () => {
         root,
     );
 };
+
+showLyricsBetter();

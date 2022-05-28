@@ -1,53 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { Rnd } from 'react-rnd';
+import React, { useState } from 'react';
+import { Rnd as ResizeDragWrapper } from 'react-rnd';
+import { useMusicApi } from '../hooks/useMusicApi';
 
-import { getTrack } from '../../music-api';
-import { extractLyrics } from '../extract-lyrics';
-import { addSeqListener, removeSeqListener } from '../../seq-api';
+import './lyrics-window.css';
 
 const LyricsWindow = () => {
     const [lyrics, setLyrics] = useState('DEFAULT GREETING TEXT');
-
-    const style = {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        border: 'solid 1px #ddd',
-        backgroundColor: 'hsla(0, 0%, 9%, 0.90)',
-        zIndex: '1000',
-    };
-
-    useEffect(() => {
-        // Add new track event listener
-        const trackChangeHandler = async (track) => {
-            const trackData = await getTrack(track.id);
-            const lyrics = extractLyrics(trackData);
-            setLyrics(lyrics);
-            // const test = lyrics.split('\n');
-            console.log(lyrics);
-        };
-        addSeqListener('track-play', trackChangeHandler);
-
-        return () => removeSeqListener('track-play', trackChangeHandler);
-    }, []);
+    useMusicApi(setLyrics);
 
     return (
-        <Rnd
-            style={style}
+        <ResizeDragWrapper
+            bounds="window"
+            className="ResizeDragWrapper"
             default={{
                 x: 0,
                 y: 0,
-                width: 320,
-                height: 200,
+                width: 360,
+                height: 640,
             }}
+            minWidth="300"
+            minHeight="533"
         >
             <div
-                className="sidebar-track__lyric-text typo"
-                id="TEST-COMPONENT"
+                className="LyricsWindow"
             >
-                <p>{`${lyrics}`}</p>
+                <div className="controls">
+                    <button type="button">ICON</button>
+                    <button type="button">ICON</button>
+                    <button type="button">ICON</button>
+                </div>
+                <div
+                    className="textBox"
+                >
+                    {lyrics.split('\n').map((line) => {
+                        const lineJSX = line.length === 0
+                            ? (
+                                <br />
+                            )
+                            : (
+                                <>
+                                    <br />
+                                    <span>{line}</span>
+                                </>
+                            );
+                        return lineJSX;
+                    })}
+                </div>
             </div>
-        </Rnd>
+        </ResizeDragWrapper>
     );
 };
 

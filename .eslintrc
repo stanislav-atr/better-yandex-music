@@ -1,5 +1,8 @@
 {
     "extends": ["airbnb", "airbnb/hooks"],
+    "env": {
+        "webextensions": true
+    },
     "rules": {
         "react/jsx-indent": "off",
         "react/jsx-indent-props": "off",

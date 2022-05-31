@@ -1,19 +1,14 @@
 /* eslint-disable no-undef */
 
-(() => {
-    const scriptTag = document.createElement('script');
-    scriptTag.setAttribute('type', 'text/javascript');
-    scriptTag.id = 'bettermusic';
+(async () => {
+    // Wait for MAIN world event
+    window.addEventListener('seq-ready', () => {
+        chrome.runtime.sendMessage({
+            type: 'API_READY',
+        });
+    });
 
-    const browser = window.browser || chrome;
-    const scriptSource = browser.runtime.getURL('better-music.js');
-    const hash = Math.random().toString(36).substring(5);
-
-    scriptTag.setAttribute('src', `${scriptSource}?${hash}`);
-
-    const parent = document.head || document.documentElement;
-    parent.appendChild(scriptTag);
-    if (scriptTag.parentNode) {
-        scriptTag.parentNode.removeChild(scriptTag);
-    }
+    chrome.runtime.sendMessage({
+        type: 'ON_PAGE',
+    });
 })();

@@ -4,16 +4,7 @@ import ReactDOM from 'react-dom';
 
 import { LyricsWindow } from './LyricsWindow';
 
-const sequenceApi = window.Seq;
-
-const showLyricsBetter = () => {
-    if (!sequenceApi) {
-        console.log('%cBetter Lyrics Exit. Sequence api is not ready', 'color: red;');
-        return;
-    }
-    console.log('%cBetter Lyrics started', 'color: green;');
-
-    // Render component
+(() => {
     const root = document.createElement('div');
     root.id = 'root:better-lyrics';
     root.style.position = 'absolute';
@@ -26,6 +17,4 @@ const showLyricsBetter = () => {
         <LyricsWindow />,
         root,
     );
-};
-
-showLyricsBetter();
+})();

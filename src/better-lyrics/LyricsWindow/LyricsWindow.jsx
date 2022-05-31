@@ -1,3 +1,4 @@
+/* eslint-disable react/no-this-in-sfc, no-undef */
 import React, { useState } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { useMusicApi } from '../hooks/useMusicApi';
@@ -6,7 +7,15 @@ import './lyrics-window.css';
 
 const LyricsWindow = () => {
     const [lyrics, setLyrics] = useState('DEFAULT GREETING TEXT');
+
     useMusicApi(setLyrics);
+
+    const renderLine = (line) => {
+        const key = (Math.random() ** 2).toString();
+        const isText = line.length !== 0;
+
+        return isText ? <span key={key}>{line}</span> : <br key={key} />;
+    };
 
     return (
         <ResizeDragWrapper
@@ -33,17 +42,7 @@ const LyricsWindow = () => {
                     className="textBox"
                 >
                     {lyrics.split('\n').map((line) => {
-                        const lineJSX = line.length === 0
-                            ? (
-                                <br />
-                            )
-                            : (
-                                <>
-                                    <br />
-                                    <span>{line}</span>
-                                </>
-                            );
-                        return lineJSX;
+                        return renderLine(line);
                     })}
                 </div>
             </div>

@@ -1,14 +1,17 @@
 /* eslint-disable no-undef */
 
 (async () => {
-    // Wait for MAIN world event
+    /* Page channel | start */
     window.addEventListener('seq-ready', () => {
         chrome.runtime.sendMessage({
-            type: 'API_READY',
+            type: 'seq-ready',
         });
     });
+    /* Page channel | end */
 
+    /* Background channel | start */
     chrome.runtime.sendMessage({
-        type: 'ON_PAGE',
+        type: 'cs-ready',
     });
+    /* Background channel | end */
 })();

@@ -10,7 +10,6 @@ export const useMusicApi = (stateSetter) => {
             const trackData = await getTrack(track.id);
             const lyrics = extractLyrics(trackData);
             stateSetter(lyrics);
-            console.log(lyrics);
         };
         addSeqListener('track-play', trackChangeHandler);
 

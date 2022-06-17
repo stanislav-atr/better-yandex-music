@@ -7,7 +7,12 @@ const ENDPOINTS = {
     TRACK: 'https://music.yandex.ru/handlers/track.jsx?track={trackId}',
 };
 
+const STYLES = {
+    fontToSizeRatio: 66.6666667,
+};
+
 export {
     URL_REGEXES,
     ENDPOINTS,
+    STYLES,
 };

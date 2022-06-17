@@ -2,15 +2,16 @@
 
 (async () => {
     const yaMusicHandler = async ({ type }, sender) => {
-        const musicTabId = sender.tab.id;
+        const yaMusicTabId = sender.tab.id;
 
         switch (type) {
-            case 'ON_PAGE':
+            case 'cs-ready':
                 await chrome.scripting.executeScript({
                     world: 'MAIN',
                     target: {
-                        tabId: musicTabId,
+                        tabId: yaMusicTabId,
                     },
+                    // Check that yaMusic api is ready
                     func: () => {
                         const seqReadyEvent = new Event('seq-ready');
                         const { Seq } = window;
@@ -20,11 +21,11 @@
                     },
                 });
                 break;
-            case 'API_READY':
+            case 'seq-ready':
                 await chrome.scripting.executeScript({
                     world: 'MAIN',
                     target: {
-                        tabId: musicTabId,
+                        tabId: yaMusicTabId,
                     },
                     files: ['better-lyrics.js'],
                 });

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export const useResizeObserver = (observableRef, observerCallback) => {
     useEffect(() => {
-        const refNode = observableRef.current.resizableElement.current;
+        const refNode = observableRef.current;
         // eslint-disable-next-line no-undef
         const rObserver = new ResizeObserver(observerCallback);
         rObserver.observe(refNode);

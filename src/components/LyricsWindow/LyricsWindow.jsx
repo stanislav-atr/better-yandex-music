@@ -1,5 +1,5 @@
 /* eslint-disable react/no-this-in-sfc, no-undef */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { RenderLine } from '../RenderLine';
 import { useMusicApi, useResizeObserver } from '../../hooks';
@@ -19,18 +19,21 @@ const LyricsWindow = () => {
     };
     const [lyrics, setLyrics] = useState(LYRICS_STUB);
     const [fontSize, setFontSize] = useState(defaultStyleParams.fontSize);
-    const rdWrapperRef = useRef();
+    const textBoxRef = useRef();
 
     useMusicApi(setLyrics);
 
-    useResizeObserver(rdWrapperRef, (entries) => {
+    useResizeObserver(textBoxRef, (entries) => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / STYLES.fontToSizeRatio}`);
     });
 
+    useEffect(() => {
+        textBoxRef.current.scrollTo(0, 0);
+    }, [lyrics]);
+
     return (
         <ResizeDragWrapper
-            ref={rdWrapperRef}
             bounds="window"
             className="ResizeDragWrapper"
             default={{
@@ -43,7 +46,10 @@ const LyricsWindow = () => {
             minHeight={defaultStyleParams.minHeight}
         >
             <div className="lyrics_window">
-                <div className="text_box">
+                <div
+                    ref={textBoxRef}
+                    className="text_box"
+                >
                     {lyrics.split('\n').map((line, i, array) => {
                         const { firstLineMargin, lastLineMargin } = defaultStyleParams;
                         const margins = {

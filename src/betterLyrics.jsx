@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { LyricsWindow } from './LyricsWindow';
+import { LyricsWindow } from './components/LyricsWindow';
 
 (() => {
     const root = document.createElement('div');

@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 module.exports = {
     devtool: 'inline-cheap-source-map',
     mode: 'development',
-    entry: './src/better-lyrics/betterLyrics.jsx',
+    entry: './src/betterLyrics.jsx',
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'better-lyrics.js',

@@ -11,8 +11,11 @@ const STYLES = {
     fontToSizeRatio: 24,
 };
 
+const LYRICS_STUB = 'DEFAULT GREETING TEXT';
+
 export {
     URL_REGEXES,
     ENDPOINTS,
     STYLES,
+    LYRICS_STUB,
 };

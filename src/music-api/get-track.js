@@ -1,4 +1,4 @@
-import { ENDPOINTS } from '../utils/constants';
+import { ENDPOINTS } from '../constants';
 /**
  * Request full track data by id
  *

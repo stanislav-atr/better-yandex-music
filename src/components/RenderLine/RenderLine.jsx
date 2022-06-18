@@ -3,7 +3,6 @@ import React from 'react';
 
 const RenderLine = (props) => {
     const { line, margins, fontSize } = props;
-    const key = (Math.random()).toString();
     const isText = line.length !== 0;
 
     const lineStyle = {
@@ -16,12 +15,11 @@ const RenderLine = (props) => {
     return isText ? (
         <span
             style={lineStyle}
-            key={key}
         >
             {line}
         </span>
     )
-        : <br key={key} />;
+        : <br />;
 };
 
 export { RenderLine };

@@ -52,6 +52,7 @@ const LyricsWindow = () => {
                         };
                         return (
                             <RenderLine
+                                key={Math.random().toString()}
                                 line={line}
                                 margins={margins}
                                 fontSize={fontSize}

@@ -14,19 +14,20 @@ const LyricsWindow = () => {
 
     useEffect(() => {
         const rObserver = new ResizeObserver((entries) => {
-            const { height, width } = entries[0].contentRect;
-            setFontSize(`${(height + width) / STYLES.fontToSizeRatio}`);
+            const { width } = entries[0].contentRect;
+            setFontSize(`${width / STYLES.fontToSizeRatio}`);
         });
         rObserver.observe(rdWrapperRef.current.resizableElement.current);
     }, [setFontSize]);
 
-    const renderLine = (line, isFirst) => {
+    const renderLine = (line, isFirst, isLast) => {
         const key = (Math.random()).toString();
         const isText = line.length !== 0;
 
         const lineStyle = {
             'marginLeft': '5%',
             'marginTop': isFirst ? '5%' : '0',
+            'marginBottom': isLast ? '5%' : '0',
             'fontSize': `${fontSize}px`,
         };
 
@@ -56,11 +57,11 @@ const LyricsWindow = () => {
             minHeight="533"
         >
             <div className="lyrics_window">
-                <div
-                    className="text_box"
-                >
-                    {lyrics.split('\n').map((line, i) => {
-                        return renderLine(line, i === 0);
+                <div className="text_box">
+                    {lyrics.split('\n').map((line, i, array) => {
+                        const isFirst = i === 0;
+                        const isLast = i === array.length - 1;
+                        return renderLine(line, isFirst, isLast);
                     })}
                 </div>
             </div>

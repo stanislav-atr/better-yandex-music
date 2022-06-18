@@ -8,7 +8,7 @@ const ENDPOINTS = {
 };
 
 const STYLES = {
-    fontToSizeRatio: 66.6666667,
+    fontToSizeRatio: 24,
 };
 
 export {

@@ -10,11 +10,38 @@
 .text_box {
     width: 100%;
     height: 100%;
+    border: 0.5px solid rgba(255, 219, 77, 0.7);
+    border-radius: 0 8px 8px 0;
     overflow: scroll;
-    background-color: hsla(0,0%,5%,.85);
+    background-color: rgba(24, 24, 24, 0.9);
     color: hsla(0,9%,100%);
     font-size: 15px;
-    border: 1px solid #ddd;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.text_box::-webkit-scrollbar {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 15px;
+}
+
+.text_box::-webkit-scrollbar-thumb {
+    width: 5px;
+	border-radius: 10px;
+    border-left: 10px solid #171717;
+	background-image: -webkit-gradient(linear,
+									   left bottom,
+									   left top,
+									   color-stop(0, rgba(255, 226, 116, 0.75)),
+                                       color-stop(0.1, rgba(255, 224, 107, 0.75)),
+                                       color-stop(0.2, rgba(255, 222, 97, 0.75)),
+                                       color-stop(0.3, rgba(255, 221, 87, 0.75)),
+                                       color-stop(0.4, rgba(255, 219, 77, 0.75)),
+                                       color-stop(0.5, rgba(255, 219, 77, 0.75)),
+                                       color-stop(0.6, rgba(255, 221, 87, 0.75)),
+                                       color-stop(0.7, rgba(255, 222, 97, 0.75)),
+                                       color-stop(0.8, rgba(255, 224, 107, 0.75)),
+                                       color-stop(0.9, rgba(255, 226, 116, 0.75)));
 }

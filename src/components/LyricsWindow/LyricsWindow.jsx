@@ -1,8 +1,8 @@
 /* eslint-disable react/no-this-in-sfc, no-undef */
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { RenderLine } from '../RenderLine';
-import { useMusicApi } from '../../hooks/useMusicApi';
+import { useMusicApi, useResizeObserver } from '../../hooks';
 import { STYLES, LYRICS_STUB } from '../../constants';
 
 import './lyrics-window.css';
@@ -23,13 +23,10 @@ const LyricsWindow = () => {
 
     useMusicApi(setLyrics);
 
-    useEffect(() => {
-        const rObserver = new ResizeObserver((entries) => {
-            const { width } = entries[0].contentRect;
-            setFontSize(`${width / STYLES.fontToSizeRatio}`);
-        });
-        rObserver.observe(rdWrapperRef.current.resizableElement.current);
-    }, [setFontSize]);
+    useResizeObserver(rdWrapperRef, setFontSize, (entries) => {
+        const { width } = entries[0].contentRect;
+        setFontSize(`${width / STYLES.fontToSizeRatio}`);
+    });
 
     return (
         <ResizeDragWrapper

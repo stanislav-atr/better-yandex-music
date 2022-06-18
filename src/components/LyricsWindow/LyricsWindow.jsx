@@ -23,7 +23,7 @@ const LyricsWindow = () => {
 
     useMusicApi(setLyrics);
 
-    useResizeObserver(rdWrapperRef, setFontSize, (entries) => {
+    useResizeObserver(rdWrapperRef, (entries) => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / STYLES.fontToSizeRatio}`);
     });

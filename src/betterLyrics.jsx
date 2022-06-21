@@ -15,5 +15,5 @@ import { LyricsWindow } from './components/LyricsWindow';
     const root = createRoot(container);
     root.render(<LyricsWindow />);
 
-    container.addEventListener('close-button-click', () => root.unmount());
+    container.addEventListener('lyrics:close-button-click', () => root.unmount());
 })();

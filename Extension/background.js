@@ -5,7 +5,7 @@
         const yaMusicTabId = sender.tab.id;
 
         switch (type) {
-            case 'cs-ready':
+            case 'lyrics:cs-ready':
                 await chrome.scripting.executeScript({
                     world: 'MAIN',
                     target: {
@@ -13,7 +13,7 @@
                     },
                     // Check that yaMusic api is ready
                     func: () => {
-                        const seqReadyEvent = new Event('seq-ready');
+                        const seqReadyEvent = new Event('lyrics:seq-ready');
                         const { Seq } = window;
                         if (Seq) {
                             dispatchEvent(seqReadyEvent);
@@ -21,7 +21,7 @@
                     },
                 });
                 break;
-            case 'seq-ready':
+            case 'lyrics:seq-ready':
                 // inject script when yaMusic api is ready
                 await chrome.scripting.executeScript({
                     world: 'MAIN',

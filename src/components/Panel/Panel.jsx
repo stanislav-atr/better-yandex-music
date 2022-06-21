@@ -6,7 +6,7 @@ const Panel = () => {
     const closeButtonRef = useRef();
     const clickHandlers = {
         closeHandler: () => {
-            const event = new Event('close-button-click', { bubbles: true });
+            const event = new Event('lyrics:close-button-click', { bubbles: true });
             // eslint-disable-next-line no-undef
             const container = document.querySelector(`[id="${CONTAINER_NODE_ID}"]`);
             if (container) {

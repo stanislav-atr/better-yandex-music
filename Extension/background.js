@@ -37,4 +37,14 @@
     };
 
     chrome.runtime.onMessage.addListener(messenger);
+
+    chrome.action.onClicked.addListener(async ({ id }) => {
+        await chrome.scripting.executeScript({
+            world: 'MAIN',
+            target: {
+                tabId: id,
+            },
+            files: ['better-lyrics.js'],
+        });
+    });
 })();

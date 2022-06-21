@@ -2,7 +2,7 @@
 
 (async () => {
     /* Page channel | start */
-    window.addEventListener('seq-ready', () => {
+    window.addEventListener('lyrics:seq-ready', () => {
         chrome.runtime.sendMessage({
             type: 'lyrics:seq-ready',
         });

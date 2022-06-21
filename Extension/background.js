@@ -1,7 +1,7 @@
 /* eslint-disable no-console, no-undef */
 
 (async () => {
-    const yaMusicHandler = async ({ type }, sender) => {
+    const messenger = async ({ type }, sender) => {
         const yaMusicTabId = sender.tab.id;
 
         switch (type) {
@@ -22,6 +22,7 @@
                 });
                 break;
             case 'seq-ready':
+                // inject script when yaMusic api is ready
                 await chrome.scripting.executeScript({
                     world: 'MAIN',
                     target: {
@@ -35,5 +36,5 @@
         }
     };
 
-    chrome.runtime.onMessage.addListener(yaMusicHandler);
+    chrome.runtime.onMessage.addListener(messenger);
 })();

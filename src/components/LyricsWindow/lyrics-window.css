@@ -46,3 +46,7 @@
                                        color-stop(0.8, rgba(255, 224, 107, 0.75)),
                                        color-stop(0.9, rgba(255, 226, 116, 0.75)));
 }
+
+.panel button {
+    width: calc(100% / 3);
+}

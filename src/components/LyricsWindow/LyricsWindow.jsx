@@ -2,6 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { RenderLine } from '../RenderLine';
+import { Panel } from '../Panel';
 import { useMusicApi, useResizeObserver } from '../../hooks';
 import { STYLES, LYRICS_STUB } from '../../constants';
 
@@ -46,6 +47,7 @@ const LyricsWindow = () => {
             minHeight={defaultStyleParams.minHeight}
         >
             <div className="lyrics_window">
+                <Panel />
                 <div
                     ref={textBoxRef}
                     className="text_box"

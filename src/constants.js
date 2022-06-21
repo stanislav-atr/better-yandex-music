@@ -12,10 +12,12 @@ const STYLES = {
 };
 
 const LYRICS_STUB = 'DEFAULT GREETING TEXT';
+const CONTAINER_NODE_ID = 'root:better-lyrics';
 
 export {
     URL_REGEXES,
     ENDPOINTS,
     STYLES,
     LYRICS_STUB,
+    CONTAINER_NODE_ID,
 };

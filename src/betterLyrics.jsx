@@ -1,20 +1,19 @@
 /* eslint-disable no-console, no-undef */
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { LyricsWindow } from './components/LyricsWindow';
 
 (() => {
-    const root = document.createElement('div');
-    root.id = 'root:better-lyrics';
-    root.style.position = 'absolute';
-    root.style.left = '0';
-    root.style.top = '0';
+    const container = document.createElement('div');
+    container.id = 'root:better-lyrics';
+    container.style.position = 'absolute';
+    container.style.left = '0';
+    container.style.top = '0';
+    document.body.append(container);
 
-    document.body.append(root);
+    const root = createRoot(container);
+    root.render(<LyricsWindow />);
 
-    ReactDOM.render(
-        <LyricsWindow />,
-        root,
-    );
+    container.addEventListener('close-button-click', () => root.unmount());
 })();

@@ -2,8 +2,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { LyricsLine } from '../LyricsLine';
-import { useMusicApi, useResizeObserver } from '../../hooks';
-import { STYLES, LYRICS_STUB, CONTAINER_NODE_ID } from '../../constants';
+import { STYLES, LYRICS_STUB } from '../../constants';
+import {
+    useMusicApi,
+    useResizeObserver,
+    useCloseButton,
+} from '../../hooks';
 
 import './lyrics-window.css';
 
@@ -23,7 +27,7 @@ const LyricsWindow = () => {
     const closeButtonRef = useRef();
 
     useMusicApi(setLyrics);
-
+    useCloseButton(closeButtonRef);
     useResizeObserver(textBoxRef, (entries) => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / STYLES.fontToSizeRatio}`);
@@ -32,24 +36,6 @@ const LyricsWindow = () => {
     useEffect(() => {
         textBoxRef.current.scrollTo(0, 0);
     }, [lyrics]);
-
-    const handleCloseButton = () => {
-        const event = new Event('lyrics:close-button-click', { bubbles: true });
-        // eslint-disable-next-line no-undef
-        const container = document.querySelector(`[id="${CONTAINER_NODE_ID}"]`);
-        if (container) {
-            container.dispatchEvent(event);
-        }
-    };
-
-    useEffect(() => {
-        // close event should be dispatched from DOM node to be caught on another DOM node
-        const closeButton = closeButtonRef.current;
-        closeButton.addEventListener('click', handleCloseButton);
-        return () => {
-            closeButton.removeEventListener('click', handleCloseButton);
-        };
-    }, []);
 
     return (
         <ResizeDragWrapper

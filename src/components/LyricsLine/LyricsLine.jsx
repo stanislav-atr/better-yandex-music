@@ -1,7 +1,7 @@
 /* eslint-disable react/no-this-in-sfc, no-undef */
 import React from 'react';
 
-const RenderLine = (props) => {
+const LyricsLine = (props) => {
     const { line, margins, fontSize } = props;
     const isText = line.length !== 0;
 
@@ -22,4 +22,4 @@ const RenderLine = (props) => {
         : <br />;
 };
 
-export { RenderLine };
+export { LyricsLine };

@@ -47,14 +47,9 @@
                                        color-stop(0.9, rgba(255, 226, 116, 0.75)));
 }
 
-.panel {
+.close_button {
     position: fixed;
     top: -3%;
     height: 3%;
-    width: calc(100% - 4px);
-}
-
-.panel button {
-    height: 100%;
     width: calc(100% / 3);
 }

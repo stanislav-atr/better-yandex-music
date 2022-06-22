@@ -1,15 +1,14 @@
 /* eslint-disable react/no-this-in-sfc, no-undef */
 import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
-import { RenderLine } from '../RenderLine';
-import { Panel } from '../Panel';
+import { LyricsLine } from '../LyricsLine';
 import { useMusicApi, useResizeObserver } from '../../hooks';
-import { STYLES, LYRICS_STUB } from '../../constants';
+import { STYLES, LYRICS_STUB, CONTAINER_NODE_ID } from '../../constants';
 
 import './lyrics-window.css';
 
 const LyricsWindow = () => {
-    const defaultStyleParams = {
+    const styleParams = {
         width: 360,
         height: 640,
         minWidth: '300',
@@ -19,8 +18,9 @@ const LyricsWindow = () => {
         lastLineMargin: '5%',
     };
     const [lyrics, setLyrics] = useState(LYRICS_STUB);
-    const [fontSize, setFontSize] = useState(defaultStyleParams.fontSize);
+    const [fontSize, setFontSize] = useState(styleParams.fontSize);
     const textBoxRef = useRef();
+    const closeButtonRef = useRef();
 
     useMusicApi(setLyrics);
 
@@ -33,6 +33,24 @@ const LyricsWindow = () => {
         textBoxRef.current.scrollTo(0, 0);
     }, [lyrics]);
 
+    const handleCloseButton = () => {
+        const event = new Event('lyrics:close-button-click', { bubbles: true });
+        // eslint-disable-next-line no-undef
+        const container = document.querySelector(`[id="${CONTAINER_NODE_ID}"]`);
+        if (container) {
+            container.dispatchEvent(event);
+        }
+    };
+
+    useEffect(() => {
+        // close event should be dispatched from DOM node to be caught on another DOM node
+        const closeButton = closeButtonRef.current;
+        closeButton.addEventListener('click', handleCloseButton);
+        return () => {
+            closeButton.removeEventListener('click', handleCloseButton);
+        };
+    }, []);
+
     return (
         <ResizeDragWrapper
             bounds="window"
@@ -40,26 +58,32 @@ const LyricsWindow = () => {
             default={{
                 x: 0,
                 y: 0,
-                width: defaultStyleParams.width,
-                height: defaultStyleParams.height,
+                width: styleParams.width,
+                height: styleParams.height,
             }}
-            minWidth={defaultStyleParams.minWidth}
-            minHeight={defaultStyleParams.minHeight}
+            minWidth={styleParams.minWidth}
+            minHeight={styleParams.minHeight}
         >
-            <Panel />
+            <button
+                type="button"
+                className="close_button"
+                ref={closeButtonRef}
+            >
+                Close
+            </button>
             <div className="lyrics_window">
                 <div
                     ref={textBoxRef}
                     className="text_box"
                 >
                     {lyrics.split('\n').map((line, i, array) => {
-                        const { firstLineMargin, lastLineMargin } = defaultStyleParams;
+                        const { firstLineMargin, lastLineMargin } = styleParams;
                         const margins = {
                             top: i === 0 ? firstLineMargin : '0',
                             bottom: i === array.length - 1 ? lastLineMargin : '0',
                         };
                         return (
-                            <RenderLine
+                            <LyricsLine
                                 key={Math.random().toString()}
                                 line={line}
                                 margins={margins}

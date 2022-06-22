@@ -46,8 +46,8 @@ const LyricsWindow = () => {
             minWidth={defaultStyleParams.minWidth}
             minHeight={defaultStyleParams.minHeight}
         >
+            <Panel />
             <div className="lyrics_window">
-                <Panel />
                 <div
                     ref={textBoxRef}
                     className="text_box"

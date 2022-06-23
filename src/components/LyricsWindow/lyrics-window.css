@@ -1,26 +1,34 @@
-.ResizeDragWrapper {
+/* .ResizeDragWrapper {
     z-index: 9999;
-}
+    background-color: rgba(24, 24, 24, 0.9);
+    padding: -4%;
+} */
 
 .lyrics_window {
     width: 100%;
     height: 100%;
+    border: 0.5px solid rgba(255, 219, 77, 0.7);
+    border-radius: 8px;
 }
 
 .text_box {
+    /*
+     * Border hack to keep padding while scrolling text
+     * without breaking resize handlers
+     */
+    border-style: solid;
+    border-color: rgba(255, 219, 77, 0.0001);
+    border-width: 15px 0 15px 15px;
+    box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border: 0.5px solid rgba(255, 219, 77, 0.7);
-    border-radius: 0 8px 8px 0;
-    overflow: scroll;
-    background-color: rgba(24, 24, 24, 0.9);
     color: hsla(0,9%,100%);
-    font-size: 15px;
     display: flex;
     flex-direction: column;
+    cursor: default;
+    overflow: scroll;
     overflow-y: scroll;
     overflow-x: hidden;
-    cursor: default;
 }
 
 .text_box::-webkit-scrollbar {

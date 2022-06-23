@@ -2,19 +2,12 @@
 import React from 'react';
 
 const LyricsLine = (props) => {
-    const { line, margins, fontSize } = props;
+    const { line, fontSize } = props;
     const isText = line.length !== 0;
-
-    const lineStyle = {
-        'marginLeft': '5%',
-        'marginTop': margins.top,
-        'marginBottom': margins.bottom,
-        'fontSize': `${fontSize}px`,
-    };
 
     return isText ? (
         <span
-            style={lineStyle}
+            style={{ fontSize: `${fontSize}px` }}
         >
             {line}
         </span>

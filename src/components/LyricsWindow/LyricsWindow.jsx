@@ -18,8 +18,6 @@ const LyricsWindow = () => {
         minWidth: '300',
         minHeight: '533',
         fontSize: '15',
-        firstLineMargin: '5%',
-        lastLineMargin: '5%',
     };
     const [lyrics, setLyrics] = useState(LYRICS_STUB);
     const [fontSize, setFontSize] = useState(styleParams.fontSize);
@@ -49,6 +47,10 @@ const LyricsWindow = () => {
             }}
             minWidth={styleParams.minWidth}
             minHeight={styleParams.minHeight}
+            style={{
+                zIndex: 9999,
+                backgroundColor: 'rgba(24, 24, 24, 0.9)',
+            }}
         >
             <button
                 type="button"
@@ -62,17 +64,11 @@ const LyricsWindow = () => {
                     ref={textBoxRef}
                     className="text_box"
                 >
-                    {lyrics.split('\n').map((line, i, array) => {
-                        const { firstLineMargin, lastLineMargin } = styleParams;
-                        const margins = {
-                            top: i === 0 ? firstLineMargin : '0',
-                            bottom: i === array.length - 1 ? lastLineMargin : '0',
-                        };
+                    {lyrics.split('\n').map((line) => {
                         return (
                             <LyricsLine
                                 key={Math.random().toString()}
                                 line={line}
-                                margins={margins}
                                 fontSize={fontSize}
                             />
                         );

@@ -8,7 +8,7 @@
 .lyrics_window {
     width: 100%;
     height: 100%;
-    border: 0.5px solid rgba(255, 219, 77, 0.7);
+    border: 0.5px solid rgb(255, 219, 77);
     border-radius: 8px;
     cursor: default;
     overflow: scroll;

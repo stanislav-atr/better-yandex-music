@@ -2,17 +2,19 @@
 import React from 'react';
 
 const LyricsLine = (props) => {
-    const { line, fontSize } = props;
+    const { line } = props;
     const isText = line.length !== 0;
 
-    return isText ? (
-        <span
-            style={{ fontSize: `${fontSize}px` }}
-        >
+    const textline = (
+        <span>
             {line}
         </span>
-    )
-        : <br />;
+    );
+    const verseBreak = (
+        <div style={{ minHeight: '10px', maxHeight: '6%' }} />
+    );
+
+    return isText ? textline : verseBreak;
 };
 
 export { LyricsLine };

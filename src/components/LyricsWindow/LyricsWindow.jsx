@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { LyricsLine } from '../LyricsLine';
-import { STYLES, LYRICS_STUB } from '../../constants';
+import { LYRICS_STUB } from '../../constants';
 import {
     useMusicApi,
     useResizeObserver,
@@ -12,15 +12,16 @@ import {
 import './lyrics-window.css';
 
 const LyricsWindow = () => {
-    const styleParams = {
+    const defaultStyle = {
         width: 360,
         height: 640,
-        minWidth: '300',
-        minHeight: '533',
+        minWidth: '200',
+        minHeight: '355',
         fontSize: '15',
+        fontToContainerRatio: 20,
     };
     const [lyrics, setLyrics] = useState(LYRICS_STUB);
-    const [fontSize, setFontSize] = useState(styleParams.fontSize);
+    const [fontSize, setFontSize] = useState(defaultStyle.fontSize);
     const textBoxRef = useRef();
     const closeButtonRef = useRef();
 
@@ -28,7 +29,7 @@ const LyricsWindow = () => {
     useCloseButton(closeButtonRef);
     useResizeObserver(textBoxRef, (entries) => {
         const { width } = entries[0].contentRect;
-        setFontSize(`${width / STYLES.fontToSizeRatio}`);
+        setFontSize(`${width / defaultStyle.fontToContainerRatio}`);
     });
 
     useEffect(() => {
@@ -42,11 +43,11 @@ const LyricsWindow = () => {
             default={{
                 x: 0,
                 y: 0,
-                width: styleParams.width,
-                height: styleParams.height,
+                width: defaultStyle.width,
+                height: defaultStyle.height,
             }}
-            minWidth={styleParams.minWidth}
-            minHeight={styleParams.minHeight}
+            minWidth={defaultStyle.minWidth}
+            minHeight={defaultStyle.minHeight}
         >
             <button
                 type="button"
@@ -60,8 +61,10 @@ const LyricsWindow = () => {
                 <div
                     ref={textBoxRef}
                     className="text_box"
+                    style={{
+                        fontSize: `${fontSize}px`,
+                    }}
                 >
-
                     {lyrics.split('\n').map((line) => {
                         return (
                             <LyricsLine

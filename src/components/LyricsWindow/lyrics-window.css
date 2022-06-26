@@ -27,18 +27,45 @@
 .scroll_padding {
     position: sticky;
     width: 100%;
-    min-height: 2.5%;
-    max-height: 4%; 
-    background-color: transparent;
+    min-height: 3%;
+    max-height: 5%; 
     left: 0;
 }
 
 .scroll_padding.top {
     top: 0;
+    background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0, rgba(24, 24, 24, 0.1)),
+    color-stop(0.1, rgba(24, 24, 24, 0.2)),
+    color-stop(0.2, rgba(24, 24, 24, 0.3)),
+    color-stop(0.3, rgba(24, 24, 24, 0.4)),
+    color-stop(0.4, rgba(24, 24, 24, 0.5)),
+    color-stop(0.5, rgba(24, 24, 24, 0.6)),
+    color-stop(0.6, rgba(24, 24, 24, 0.7)),
+    color-stop(0.7, rgba(24, 24, 24, 0.8)),
+    color-stop(0.8, rgba(24, 24, 24, 0.9)),
+    color-stop(0.9, rgba(24, 24, 24, 1))
+);
 }
 
 .scroll_padding.bottom {
     bottom: 0;
+    background-image: -webkit-gradient(linear,
+    left top,
+    left bottom,
+    color-stop(0, rgba(24, 24, 24, 0.1)),
+    color-stop(0.1, rgba(24, 24, 24, 0.2)),
+    color-stop(0.2, rgba(24, 24, 24, 0.3)),
+    color-stop(0.3, rgba(24, 24, 24, 0.4)),
+    color-stop(0.4, rgba(24, 24, 24, 0.5)),
+    color-stop(0.5, rgba(24, 24, 24, 0.6)),
+    color-stop(0.6, rgba(24, 24, 24, 0.7)),
+    color-stop(0.7, rgba(24, 24, 24, 0.8)),
+    color-stop(0.8, rgba(24, 24, 24, 0.9)),
+    color-stop(0.9, rgba(24, 24, 24, 1))
+);
 }
 
 .lyrics_window::-webkit-scrollbar {

@@ -47,10 +47,6 @@ const LyricsWindow = () => {
             }}
             minWidth={styleParams.minWidth}
             minHeight={styleParams.minHeight}
-            style={{
-                zIndex: 9999,
-                backgroundColor: 'rgba(24, 24, 24, 0.9)',
-            }}
         >
             <button
                 type="button"
@@ -60,10 +56,12 @@ const LyricsWindow = () => {
                 Close
             </button>
             <div className="lyrics_window">
+                <div className="scroll_padding top" />
                 <div
                     ref={textBoxRef}
                     className="text_box"
                 >
+
                     {lyrics.split('\n').map((line) => {
                         return (
                             <LyricsLine
@@ -74,6 +72,7 @@ const LyricsWindow = () => {
                         );
                     })}
                 </div>
+                <div className="scroll_padding bottom" />
             </div>
         </ResizeDragWrapper>
     );

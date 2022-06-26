@@ -1,42 +1,52 @@
-/* .ResizeDragWrapper {
+.ResizeDragWrapper {
     z-index: 9999;
     background-color: rgba(24, 24, 24, 0.9);
-    padding: -4%;
-} */
+    color: hsla(0,9%,100%);
+    border-radius: 8px;
+}
 
 .lyrics_window {
     width: 100%;
     height: 100%;
     border: 0.5px solid rgba(255, 219, 77, 0.7);
     border-radius: 8px;
-}
-
-.text_box {
-    /*
-     * Border hack to keep padding while scrolling text
-     * without breaking resize handlers
-     */
-    border-style: solid;
-    border-color: rgba(255, 219, 77, 0.0001);
-    border-width: 15px 0 15px 15px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    color: hsla(0,9%,100%);
-    display: flex;
-    flex-direction: column;
     cursor: default;
     overflow: scroll;
     overflow-y: scroll;
     overflow-x: hidden;
 }
 
-.text_box::-webkit-scrollbar {
+.text_box {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 4%;
+}
+
+.scroll_padding {
+    position: sticky;
+    width: 100%;
+    min-height: 2.5%;
+    max-height: 4%; 
+    background-color: transparent;
+    left: 0;
+}
+
+.scroll_padding.top {
+    top: 0;
+}
+
+.scroll_padding.bottom {
+    bottom: 0;
+}
+
+.lyrics_window::-webkit-scrollbar {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 15px;
 }
 
-.text_box::-webkit-scrollbar-thumb {
+.lyrics_window::-webkit-scrollbar-thumb {
     width: 5px;
 	border-radius: 10px;
     border-left: 10px solid #171717;

@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { LyricsLine } from '../LyricsLine';
-import { LYRICS_STUB } from '../../constants';
+import { APP_MESSAGES } from '../../constants';
 import {
     useMusicApi,
     useResizeObserver,
@@ -20,7 +20,7 @@ const LyricsWindow = () => {
         fontSize: '15',
         fontToContainerRatio: 20,
     };
-    const [lyrics, setLyrics] = useState(LYRICS_STUB);
+    const [lyrics, setLyrics] = useState(APP_MESSAGES.GREETING);
     const [fontSize, setFontSize] = useState(defaultStyle.fontSize);
     const textBoxRef = useRef();
     const closeButtonRef = useRef();

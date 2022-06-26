@@ -11,7 +11,7 @@ export const extractLyrics = (trackData) => {
     }
     const lyricText = lyricsData[0].fullLyrics;
 
-    const lyricsString = lyricText || 'NO LYRICS AVAILABLE';
+    const lyricsString = lyricText || null;
 
     return lyricsString;
 };

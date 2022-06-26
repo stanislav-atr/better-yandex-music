@@ -7,12 +7,15 @@ const ENDPOINTS = {
     TRACK: 'https://music.yandex.ru/handlers/track.jsx?track={trackId}',
 };
 
-const LYRICS_STUB = 'DEFAULT GREETING TEXT';
+const APP_MESSAGES = {
+    GREETING: 'DEFAULT GREETING TEXT',
+    LYRICS_NOT_AVAILABLE: 'NO LYRICS AVAILABLE',
+};
 const CONTAINER_NODE_ID = 'root:better_lyrics';
 
 export {
     URL_REGEXES,
     ENDPOINTS,
-    LYRICS_STUB,
+    APP_MESSAGES,
     CONTAINER_NODE_ID,
 };

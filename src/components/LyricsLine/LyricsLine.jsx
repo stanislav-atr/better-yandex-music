@@ -5,7 +5,7 @@ const LyricsLine = (props) => {
     const { line } = props;
     const isText = line.length !== 0;
 
-    const textline = (
+    const textLine = (
         <span>
             {line}
         </span>
@@ -14,7 +14,7 @@ const LyricsLine = (props) => {
         <div style={{ minHeight: '10px', maxHeight: '6%' }} />
     );
 
-    return isText ? textline : verseBreak;
+    return isText ? textLine : verseBreak;
 };
 
 export { LyricsLine };

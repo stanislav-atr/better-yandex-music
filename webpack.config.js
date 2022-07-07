@@ -34,9 +34,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [
-                { from: './Extension/manifest.json', to: './' },
-                { from: './Extension/background.js', to: './' },
-                { from: './Extension/content-script.js', to: './' },
+                { from: './Extension', to: './' },
             ],
         }),
     ],

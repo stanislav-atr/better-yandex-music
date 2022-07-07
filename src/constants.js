@@ -8,8 +8,8 @@ const ENDPOINTS = {
 };
 
 const APP_MESSAGES = {
-    GREETING: 'DEFAULT GREETING TEXT',
-    LYRICS_NOT_AVAILABLE: 'NO LYRICS AVAILABLE',
+    GREETING: '｡◕‿◕｡',
+    LYRICS_NOT_AVAILABLE: '（>﹏<）',
 };
 const CONTAINER_NODE_ID = 'root:better_lyrics';
 

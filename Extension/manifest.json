@@ -6,22 +6,11 @@
         "extension_pages": "script-src 'self'; object-src 'self';"
     },
     "icons": {
-        "128": "/assets/icons/icon-128.png"
+        "128": "/assets/icons/yandex-music-original-128.png"
     },
     "action": {
         "default_title": "Open lyrics window"
     },
-    "web_accessible_resources": [
-        {
-            "resources": [
-                "better-music.js"
-            ],
-            "matches": [
-                "http://*/*",
-                "https://*/*"
-            ]
-        }
-    ],
     "permissions": [
         "tabs",
         "scripting"

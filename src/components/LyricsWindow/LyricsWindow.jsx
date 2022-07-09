@@ -70,7 +70,6 @@ const LyricsWindow = () => {
                             <LyricsLine
                                 key={Math.random().toString()}
                                 line={line}
-                                fontSize={fontSize}
                             />
                         );
                     })}

@@ -1,6 +1,5 @@
 Now
-* better font (@font-face)
-* organize resize-calculated styles
+* organize resize-calculated styles (verse breaks)
 * dif dark and light mode
 * remove close button and auto start, open-close both by action
 * extension icons on-off for action

@@ -1,5 +1,4 @@
 Now
-* improve scroll paddings size and fix bottom pos
 * dif dark and light mode
 * remove close button and auto start, open-close both by action
 * extension icons on-off for action
@@ -10,3 +9,7 @@ Now
 Later
 * (try postcss)
 * typescript
+
+Later-later
+* wave svg for scroll blur
+* render scroll blur smoothly on scroll independently from padding

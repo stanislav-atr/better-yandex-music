@@ -35,11 +35,13 @@ const DEFAULT_STYLE_PARAMS = {
     RND_HEIGHT: 640,
     RND_MIN_WIDTH: '200',
     RND_MIN_HEIGHT: '355',
+    SCROLL_BLUR_HEIGHT: '25.5',
 };
 
 const CONTAINER_RATIOS = {
     FONT_RATIO: 20,
     VERSE_BREAK_RATIO: 28.8,
+    SCROLL_BLUR_RATIO: 14.1,
 };
 
 const CONTAINER_NODE_ID = 'root:better_lyrics';

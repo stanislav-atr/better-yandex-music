@@ -20,9 +20,12 @@ const LyricsWindow = () => {
         GREETING,
         LYRICS_NOT_AVAILABLE,
     } = APP_MESSAGES;
+
     const [lyrics, setLyrics] = useState(GREETING.VALUE);
     const [fontSize, setFontSize] = useState(DEFAULT_STYLE_PARAMS.FONT_SIZE);
     const [verseBreakHeight, setVerseBreakHeight] = useState(DEFAULT_STYLE_PARAMS.VERSE_BREAK_HEIGHT);
+    const [scrollBlurHeight, setScrollBlurHeight] = useState(DEFAULT_STYLE_PARAMS.SCROLL_BLUR_HEIGHT);
+
     const textBoxRef = useRef();
     const closeButtonRef = useRef();
 
@@ -32,6 +35,7 @@ const LyricsWindow = () => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / CONTAINER_RATIOS.FONT_RATIO}`);
         setVerseBreakHeight(`${width / CONTAINER_RATIOS.VERSE_BREAK_RATIO}`);
+        setScrollBlurHeight(`${width / CONTAINER_RATIOS.SCROLL_BLUR_RATIO}`);
     });
 
     useEffect(() => {
@@ -91,7 +95,10 @@ const LyricsWindow = () => {
                 Close
             </button>
             <div className="lyrics_window">
-                <div className="scroll_padding top" />
+                <div
+                    className="scroll_blur"
+                    style={{ height: `${scrollBlurHeight}px` }}
+                />
                 <div
                     ref={textBoxRef}
                     className="text_box"
@@ -101,8 +108,8 @@ const LyricsWindow = () => {
                 >
                     {lyrics.split('\n').map((line) => renderLyricsLine(line))}
                 </div>
-                <div className="scroll_padding bottom" />
             </div>
+
         </ResizeDragWrapper>
     );
 };

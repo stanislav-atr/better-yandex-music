@@ -10,7 +10,7 @@ export const useMusicApi = (stateSetter) => {
         const trackChangeHandler = async (track) => {
             const trackData = await getTrack(track.id);
             const extractedString = extractLyrics(trackData);
-            const lyrics = extractedString || APP_MESSAGES.LYRICS_NOT_AVAILABLE;
+            const lyrics = extractedString || APP_MESSAGES.LYRICS_NOT_AVAILABLE.VALUE;
             stateSetter(lyrics);
         };
         addSeqListener('track-play', trackChangeHandler);

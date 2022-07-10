@@ -3,7 +3,8 @@ Now
 * remove close button and auto start, open-close both by action
 * extension icons on-off for action
 * sanitize code and css
-* use background to save window pos and size
+ ** error proofing & console messages styling
+ ** style (color vars)
 * make actual readme
 
 Later
@@ -11,5 +12,7 @@ Later
 * typescript
 
 Later-later
+* component-cs-background messaging interface
+* use background to save window pos and size
 * wave svg for scroll blur
 * render scroll blur smoothly on scroll independently from padding

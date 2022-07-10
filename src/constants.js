@@ -45,6 +45,8 @@ const CONTAINER_RATIOS = {
 };
 
 const CONTAINER_NODE_ID = 'root:better_lyrics';
+const DARK_THEME_KEYWORD = 'black';
+const DEFAULT_IS_DARK_THEME = true;
 
 export {
     URL_REGEXES,
@@ -53,4 +55,6 @@ export {
     CONTAINER_NODE_ID,
     CONTAINER_RATIOS,
     DEFAULT_STYLE_PARAMS,
+    DARK_THEME_KEYWORD,
+    DEFAULT_IS_DARK_THEME,
 };

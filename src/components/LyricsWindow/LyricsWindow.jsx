@@ -1,6 +1,9 @@
-/* eslint-disable react/no-this-in-sfc, no-undef */
-import React, { useState, useRef, useEffect } from 'react';
+/* eslint-disable , no-undef */
+import React, { useState, useRef, useEffect, useContext } from 'react';
+import classNames from 'classnames';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
+import { LyricsLine } from '../LyricsLine';
+import { ThemeContext } from '../../providers';
 import {
     APP_MESSAGES,
     CONTAINER_RATIOS,
@@ -14,14 +17,10 @@ import {
 
 import './lyrics-window.css';
 
-const LyricsWindow = () => {
-    const {
-        BASE_STYLE,
-        GREETING,
-        LYRICS_NOT_AVAILABLE,
-    } = APP_MESSAGES;
+export const LyricsWindow = () => {
+    const isDarkTheme = useContext(ThemeContext);
 
-    const [lyrics, setLyrics] = useState(GREETING.VALUE);
+    const [lyrics, setLyrics] = useState(APP_MESSAGES.GREETING.VALUE);
     const [fontSize, setFontSize] = useState(DEFAULT_STYLE_PARAMS.FONT_SIZE);
     const [verseBreakHeight, setVerseBreakHeight] = useState(DEFAULT_STYLE_PARAMS.VERSE_BREAK_HEIGHT);
     const [scrollBlurHeight, setScrollBlurHeight] = useState(DEFAULT_STYLE_PARAMS.SCROLL_BLUR_HEIGHT);
@@ -42,42 +41,10 @@ const LyricsWindow = () => {
         textBoxRef.current.scrollTo(0, 0);
     }, [lyrics]);
 
-    const renderLyricsLine = (line) => {
-        const key = Math.random().toString();
-        const isText = line.length !== 0;
-        if (!isText) {
-            // Render verse break for empty lines
-            return (
-                <div
-                    key={key}
-                    style={{ height: `${verseBreakHeight}px` }}
-                />
-            );
-        }
-
-        const isGreeting = line === GREETING.VALUE;
-        const isLyricsNotAvailable = line === LYRICS_NOT_AVAILABLE.VALUE;
-        const isAppMessage = isGreeting || isLyricsNotAvailable;
-        const lineStyle = isAppMessage ? {
-            ...BASE_STYLE,
-            ...(isGreeting && GREETING.STYLE),
-            ...(isLyricsNotAvailable && LYRICS_NOT_AVAILABLE.STYLE),
-        } : null;
-
-        return (
-            <span
-                key={key}
-                style={lineStyle}
-            >
-                {line}
-            </span>
-        );
-    };
-
     return (
         <ResizeDragWrapper
             bounds="window"
-            className="ResizeDragWrapper"
+            className={classNames('ResizeDragWrapper', { 'light_theme': !isDarkTheme })}
             default={{
                 x: 0,
                 y: 0,
@@ -106,12 +73,18 @@ const LyricsWindow = () => {
                         fontSize: `${fontSize}px`,
                     }}
                 >
-                    {lyrics.split('\n').map((line) => renderLyricsLine(line))}
+                    {lyrics.split('\n').map((line) => {
+                        const key = Math.random().toString();
+                        const isText = line.length !== 0;
+                        return isText ? <LyricsLine key={key} line={line} /> : (
+                            <div
+                                key={key}
+                                style={{ height: `${verseBreakHeight}px` }}
+                            />
+                        );
+                    })}
                 </div>
             </div>
-
         </ResizeDragWrapper>
     );
 };
-
-export { LyricsWindow };

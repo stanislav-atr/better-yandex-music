@@ -1,0 +1,1 @@
+export { LyricsLine } from './LyricsLine';

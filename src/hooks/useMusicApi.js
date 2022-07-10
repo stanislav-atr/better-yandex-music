@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
-import { getTrack } from '../music-api';
+import { getTrack, extractLyrics } from '../music-api';
 import { APP_MESSAGES } from '../constants';
-import { extractLyrics } from '../utils/extract-lyrics';
 import { addSeqListener, removeSeqListener } from '../seq-api';
 
 export const useMusicApi = (stateSetter) => {

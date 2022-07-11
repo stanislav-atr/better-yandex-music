@@ -1,5 +1,10 @@
 /* eslint-disable , no-undef */
-import React, { useState, useRef, useEffect, useContext } from 'react';
+import React, {
+    useState,
+    useRef,
+    useEffect,
+    useContext,
+} from 'react';
 import classNames from 'classnames';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { LyricsLine } from '../LyricsLine';

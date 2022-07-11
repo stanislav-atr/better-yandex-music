@@ -1,5 +1,4 @@
 Now
-* dif dark and light mode
 * remove close button and auto start, open-close both by action
 * extension icons on-off for action
 * sanitize code and css

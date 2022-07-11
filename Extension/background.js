@@ -1,7 +1,19 @@
 /* eslint-disable no-console, no-undef */
 
 (async () => {
-    const messenger = async ({ type }, sender) => {
+    let appIsRunning = false;
+    let isSeqReady = false;
+    let currentYaMusicTabId;
+
+    const setIsSeqReady = (value) => {
+        isSeqReady = value;
+        console.log(isSeqReady);
+    };
+
+    const messenger = async (
+        { type },
+        sender,
+    ) => {
         const yaMusicTabId = sender.tab.id;
 
         switch (type) {
@@ -22,29 +34,38 @@
                 });
                 break;
             case 'lyrics:seq-ready':
-                // inject script when yaMusic api is ready
-                await chrome.scripting.executeScript({
-                    world: 'MAIN',
-                    target: {
-                        tabId: yaMusicTabId,
-                    },
-                    files: ['better-lyrics.js'],
-                });
+                setIsSeqReady(true);
                 break;
             default:
             // do nothing
         }
     };
-
     chrome.runtime.onMessage.addListener(messenger);
 
+    // process test tab here
+    chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+        const { url } = tab;
+        if (url && url.includes('music.yandex')) {
+            currentYaMusicTabId = tabId;
+        }
+    });
+    // process test tab here
+
     chrome.action.onClicked.addListener(async ({ id }) => {
-        await chrome.scripting.executeScript({
-            world: 'MAIN',
-            target: {
-                tabId: id,
-            },
-            files: ['better-lyrics.js'],
-        });
+        if (!appIsRunning && isSeqReady) {
+            // inject script when yaMusic api is ready
+            // and if app is not running already
+            await chrome.scripting.executeScript({
+                world: 'MAIN',
+                target: {
+                    tabId: id,
+                },
+                files: ['better-lyrics.js'],
+            });
+            appIsRunning = true;
+        } else if (currentYaMusicTabId) {
+            chrome.tabs.sendMessage(currentYaMusicTabId, { type: 'lyrics:close-app' });
+            appIsRunning = false;
+        }
     });
 })();

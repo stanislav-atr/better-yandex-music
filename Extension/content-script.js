@@ -1,17 +1,26 @@
 /* eslint-disable no-undef */
 
 (async () => {
-    /* Page channel | start */
+    /* Page > background | start */
     window.addEventListener('lyrics:seq-ready', () => {
         chrome.runtime.sendMessage({
             type: 'lyrics:seq-ready',
         });
     });
-    /* Page channel | end */
+    /* Page > background | end */
 
-    /* Background channel | start */
+    /* background > page | start */
+    chrome.runtime.onMessage.addListener((message) => {
+        if (message.type === 'lyrics:close-app') {
+            const e = new Event(message.type);
+            dispatchEvent(e);
+        }
+    });
+    /* background > page | end */
+
+    /* cs > background | start */
     chrome.runtime.sendMessage({
         type: 'lyrics:cs-ready',
     });
-    /* Background channel | end */
+    /* cs > background background | end */
 })();

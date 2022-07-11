@@ -20,3 +20,9 @@ export const useCloseButton = (buttonRef) => {
         };
     }, [buttonRef]);
 };
+
+/* Root of app listener */
+// container.addEventListener('lyrics:close-button-click', () => {
+//     root.unmount();
+//     container.remove();
+// });

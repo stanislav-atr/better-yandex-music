@@ -21,7 +21,7 @@ import { createRootContainer } from './utils';
         </ThemeProvider>
     ));
 
-    container.addEventListener('lyrics:close-button-click', () => {
+    window.addEventListener('lyrics:close-app', () => {
         root.unmount();
         container.remove();
     });

@@ -1,9 +1,11 @@
 Now
-* remove close button and auto start, open-close both by action
+* rework background and cs
 * extension icons on-off for action
 * sanitize code and css
  ** error proofing & console messages styling
  ** style (color vars)
+ ** unify app prefix and event names
+ ** thoroughly comment everything
 * make actual readme
 
 Later

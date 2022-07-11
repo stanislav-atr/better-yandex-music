@@ -61,13 +61,6 @@
     );
 }
 
-.close_button {
-    position: fixed;
-    top: -3%;
-    height: 3%;
-    width: calc(100% / 3);
-}
-
 .lyrics_line {
     color: hsla(0,9%,100%);
 }

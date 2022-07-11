@@ -17,7 +17,6 @@ import {
 import {
     useMusicApi,
     useResizeObserver,
-    useCloseButton,
 } from '../../hooks';
 
 import './lyrics-window.css';
@@ -31,10 +30,8 @@ export const LyricsWindow = () => {
     const [scrollBlurHeight, setScrollBlurHeight] = useState(DEFAULT_STYLE_PARAMS.SCROLL_BLUR_HEIGHT);
 
     const textBoxRef = useRef();
-    const closeButtonRef = useRef();
 
     useMusicApi(setLyrics);
-    useCloseButton(closeButtonRef);
     useResizeObserver(textBoxRef, (entries) => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / CONTAINER_RATIOS.FONT_RATIO}`);
@@ -59,13 +56,6 @@ export const LyricsWindow = () => {
             minWidth={DEFAULT_STYLE_PARAMS.RND_MIN_WIDTH}
             minHeight={DEFAULT_STYLE_PARAMS.RND_MIN_HEIGHT}
         >
-            <button
-                type="button"
-                className="close_button"
-                ref={closeButtonRef}
-            >
-                Close
-            </button>
             <div className="lyrics_window">
                 <div
                     className="scroll_blur"

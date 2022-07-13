@@ -6,6 +6,9 @@ Now
  ** style (color vars)
  ** unify app prefix and event names
  ** thoroughly comment everything
+ ** unify filenames (hyphen/camelcase)
+ ** manifest by https://developer.chrome.com/docs/extensions/mv3/manifest/
+ ** make common constants like UNIQUE_APP_PREFIX
 * make actual readme
 
 Later

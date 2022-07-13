@@ -4,8 +4,9 @@
     "license": "MIT",
     "scripts": {
         "watch": "webpack -w",
-        "build": "webpack",
-        "lint": "eslint ./src"
+        "dev": "webpack",
+        "lint": "eslint ./src",
+        "tc": "rm -R ./dist"
     },
     "devDependencies": {
         "@babel/cli": "^7.17.0",

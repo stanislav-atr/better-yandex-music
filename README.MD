@@ -9,6 +9,8 @@ Now
  ** unify filenames (hyphen/camelcase)
  ** manifest by https://developer.chrome.com/docs/extensions/mv3/manifest/
  ** make common constants like UNIQUE_APP_PREFIX
+ ** document everything
+* set repo protection before making public
 * make actual readme
 
 Later

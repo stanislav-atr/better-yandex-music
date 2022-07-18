@@ -1,4 +1,4 @@
-import { SESSION_PARAMS } from './constants.js';
+import { SESSION_PARAMS } from '../constants.js';
 
 class SessionStorage {
     constructor() {

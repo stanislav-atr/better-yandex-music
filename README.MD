@@ -2,7 +2,7 @@ Now
 * rework background and cs
 * extension icons on-off for action
 * sanitize code and css
- ** error proofing & console messages styling
+ ** error proofing & console messages styling (debug mode?)
  ** style (color vars)
  ** unify app prefix and event names
  ** thoroughly comment everything

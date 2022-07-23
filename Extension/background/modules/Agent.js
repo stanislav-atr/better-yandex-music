@@ -4,8 +4,6 @@ import {
     SESSION_PARAMS,
     UNIQUE_APP_POSTFIX,
     AGENT_NAMES,
-    MUSIC_API_SEEKING_INTERVAL,
-    MUSIC_API_SEEKING_TIMEOUT,
 } from '../constants.js';
 
 const {
@@ -15,9 +13,10 @@ const {
 class Agent {
     constructor() {
         this[GET_MUSIC_API_STATUS] = async (agentMessage) => {
-            const musicApiReady = !!window.Seq?.isReady();
-            console.log(`${agentMessage}: Music API status: ${isMusicApiReady}`);
-            return musicApiReady;
+            const musicApiStatus = window?.Seq?.isReady();
+            // eslint-disable-next-line no-console
+            console.log(`${agentMessage}: Music API status: ${musicApiStatus}`);
+            return musicApiStatus;
         };
     }
 
@@ -26,13 +25,15 @@ class Agent {
         if (!currentMusicTabId) {
             return null;
         }
+        const agentPayload = {};
+
         return {
             world: 'MAIN',
             target: {
                 tabId: currentMusicTabId,
             },
             // injectImmediately: true,
-            args: [`${agentName}|${UNIQUE_APP_POSTFIX}`],
+            args: [`${UNIQUE_APP_POSTFIX}|${agentName}`, agentPayload],
             func: this[agentName],
         };
     }

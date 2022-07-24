@@ -21,8 +21,23 @@ import { createRootContainer } from './utils';
         </ThemeProvider>
     ));
 
-    window.addEventListener('lyrics:close-app', () => {
-        root.unmount();
-        container.remove();
-    });
+    // window.addEventListener('lyrics:close-app', () => {
+    //     root.unmount();
+    //     container.remove();
+    // });
 })();
+
+// export const renderApp = () => {
+//     if (document.querySelector(`[id="${CONTAINER_NODE_ID}"]`)) {
+//         return;
+//     }
+
+//     const container = createRootContainer();
+//     const root = createRoot(container);
+
+//     root.render((
+//         <ThemeProvider>
+//             <LyricsWindow />
+//         </ThemeProvider>
+//     ));
+// };

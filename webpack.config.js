@@ -6,15 +6,15 @@ module.exports = {
     devtool: 'inline-cheap-source-map',
     mode: 'development',
     entry: {
-        // app: {
-        //     import: './src/betterLyrics.jsx',
-        //     filename: './better-lyrics-bundle.js',
-        // },
+        app: {
+            import: './Extension/src/app/betterLyrics.jsx',
+            filename: 'better-lyrics-bundle.js',
+        },
         background: {
-            import: './Extension/background/background.js',
+            import: './Extension/src/background/background.js',
         },
         'content-script': {
-            import: './Extension/content-script.js',
+            import: './Extension/src/content-script.js',
         },
     },
     output: {
@@ -22,7 +22,7 @@ module.exports = {
     },
     resolve: {
         extensions: ['.js', '.jsx'],
-        modules: ['src', 'node_modules'],
+        modules: ['Extension', 'src', 'node_modules'],
     },
     module: {
         rules: [

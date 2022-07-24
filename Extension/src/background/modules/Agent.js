@@ -18,6 +18,8 @@ class Agent {
             console.log(`${agentMessage}: Music API status: ${musicApiStatus}`);
             return musicApiStatus;
         };
+
+        // this['test'] = renderApp;
     }
 
     prepareScriptInjection(agentName) {
@@ -41,7 +43,7 @@ class Agent {
     async dispatch(agentName) {
         const scriptInjection = this.prepareScriptInjection(agentName);
         if (scriptInjection === null) {
-            throw new Error('There is no target id at the moment of dispatch.');
+            throw new Error('There is no target tab at the moment of dispatch.');
         }
 
         const result = await chrome.scripting.executeScript(scriptInjection);

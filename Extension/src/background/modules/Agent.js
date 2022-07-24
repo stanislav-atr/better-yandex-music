@@ -8,35 +8,57 @@ import {
 
 const {
     GET_MUSIC_API_STATUS,
+    UNMOUNT_APP,
 } = AGENT_NAMES;
 
 class Agent {
     constructor() {
-        this[GET_MUSIC_API_STATUS] = async (agentMessage) => {
+        /* eslint-disable no-console */
+        this[GET_MUSIC_API_STATUS] = async (agentPrefix) => {
             const musicApiStatus = window?.Seq?.isReady();
-            // eslint-disable-next-line no-console
-            console.log(`${agentMessage}: Music API status: ${musicApiStatus}`);
+            console.log(`${agentPrefix}: Music API status: ${musicApiStatus}`);
             return musicApiStatus;
         };
 
-        // this['test'] = renderApp;
+        this[UNMOUNT_APP] = (agentPrefix) => {
+            const event = new Event(agentPrefix);
+            console.log(event);
+            dispatchEvent(event);
+            console.log(`${agentPrefix}: Dispatching 'UNMOUNT_APP'.`);
+        };
+        /* eslint-enable no-console */
     }
 
     prepareScriptInjection(agentName) {
+        const isFile = agentName.endsWith('.js');
         const currentMusicTabId = sessionStorage.getSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID);
         if (!currentMusicTabId) {
             return null;
         }
         const agentPayload = {};
 
-        return {
+        const scriptInjectionBase = {
             world: 'MAIN',
             target: {
                 tabId: currentMusicTabId,
             },
             // injectImmediately: true,
-            args: [`${UNIQUE_APP_POSTFIX}|${agentName}`, agentPayload],
-            func: this[agentName],
+        };
+
+        let scriptInjectionExecution;
+
+        if (isFile) {
+            scriptInjectionExecution = { files: [agentName] };
+        } else {
+            scriptInjectionExecution = {
+                args: [`${UNIQUE_APP_POSTFIX}|${agentName}`, agentPayload],
+                func: this[agentName],
+            };
+        }
+
+        return {
+            ...scriptInjectionBase,
+            ...scriptInjectionExecution,
         };
     }
 
@@ -46,7 +68,12 @@ class Agent {
             throw new Error('There is no target tab at the moment of dispatch.');
         }
 
-        const result = await chrome.scripting.executeScript(scriptInjection);
+        let result;
+        try {
+            result = await chrome.scripting.executeScript(scriptInjection);
+        } catch (e) {
+            throw new Error(`${UNIQUE_APP_POSTFIX}|failed to execute ${agentName}: \n ${e}`);
+        }
         return result;
     }
 }

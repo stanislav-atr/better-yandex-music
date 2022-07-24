@@ -1,13 +1,20 @@
 import { SESSION_PARAMS } from '../constants.js';
 
+const {
+    MUSIC_API_READY,
+    CURRENT_MUSIC_TAB_ID,
+    IS_APP_RUNNING,
+} = SESSION_PARAMS;
+
 class SessionStorage {
     constructor() {
         this.init();
     }
 
     init() {
-        this[SESSION_PARAMS.MUSIC_API_READY] = false;
-        this[SESSION_PARAMS.CURRENT_MUSIC_TAB_ID] = null;
+        this[CURRENT_MUSIC_TAB_ID] = null;
+        this[MUSIC_API_READY] = false;
+        this[IS_APP_RUNNING] = false;
     }
 
     getSetting(setting) {

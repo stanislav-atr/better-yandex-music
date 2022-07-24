@@ -4,40 +4,24 @@ import { createRoot } from 'react-dom/client';
 
 import { LyricsWindow } from './components/LyricsWindow';
 import { ThemeProvider } from './providers';
-import { CONTAINER_NODE_ID } from './constants';
 import { createRootContainer } from './utils';
+import { UNIQUE_APP_POSTFIX, AGENT_NAMES } from '../background/constants';
 
-(() => {
-    if (document.querySelector(`[id="${CONTAINER_NODE_ID}"]`)) {
-        return;
-    }
+const container = createRootContainer();
+const root = createRoot(container);
 
-    const container = createRootContainer();
-    const root = createRoot(container);
+root.render((
+    <ThemeProvider>
+        <LyricsWindow />
+    </ThemeProvider>
+));
 
-    root.render((
-        <ThemeProvider>
-            <LyricsWindow />
-        </ThemeProvider>
-    ));
-
-    // window.addEventListener('lyrics:close-app', () => {
-    //     root.unmount();
-    //     container.remove();
-    // });
-})();
-
-// export const renderApp = () => {
-//     if (document.querySelector(`[id="${CONTAINER_NODE_ID}"]`)) {
-//         return;
-//     }
-
-//     const container = createRootContainer();
-//     const root = createRoot(container);
-
-//     root.render((
-//         <ThemeProvider>
-//             <LyricsWindow />
-//         </ThemeProvider>
-//     ));
-// };
+window.addEventListener(
+    `${UNIQUE_APP_POSTFIX}|${AGENT_NAMES.UNMOUNT_APP}`,
+    () => {
+        console.log(`${UNIQUE_APP_POSTFIX}: unmounting app...`);
+        root.unmount();
+        container.remove();
+    },
+    { once: true },
+);

@@ -2,6 +2,8 @@ Now
 * rework background and cs
 * extension icons on-off for action
 * sanitize code and css
+ ** move some constant to global (ex app bundle name)
+ ** swap to 'is' boolean naming
  ** error proofing & console messages styling (debug mode?)
  ** style (color vars)
  ** unify app prefix and event names

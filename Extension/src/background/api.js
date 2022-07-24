@@ -1,6 +1,11 @@
 import { sessionStorage, agent } from './modules';
 import { SESSION_PARAMS, AGENT_NAMES } from './constants.js';
 
+const {
+    CURRENT_MUSIC_TAB_ID,
+    MUSIC_API_READY,
+} = SESSION_PARAMS;
+
 export const api = (function () {
     const initUrlFilter = {
         url: [
@@ -13,18 +18,15 @@ export const api = (function () {
      */
     const initSessionStorage = (tabId) => {
         sessionStorage.init();
-        sessionStorage.setSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID, tabId);
+        sessionStorage.setSetting(CURRENT_MUSIC_TAB_ID, tabId);
         // eslint-disable-next-line no-console
         console.log(`SessionStorage initialized with id: ${tabId}`);
     };
 
-    const waitForMusicApiReady = async () => {
+    const getMusicApiStatus = async () => {
         const response = await agent.dispatch(AGENT_NAMES.GET_MUSIC_API_STATUS);
         const { result: musicApiStatus } = response[0];
-        if (!musicApiStatus) {
-            throw new Error('Could not detect Music API.');
-        }
-        sessionStorage.setSetting(SESSION_PARAMS.MUSIC_API_READY, true);
+        sessionStorage.setSetting(MUSIC_API_READY, !!musicApiStatus);
         // eslint-disable-next-line no-console
         console.log('Music API is ready!');
     };
@@ -37,7 +39,11 @@ export const api = (function () {
             }
 
             initSessionStorage(tabId);
-            await waitForMusicApiReady();
+
+            while (!sessionStorage.getSetting(MUSIC_API_READY)) {
+                // eslint-disable-next-line no-await-in-loop
+                await getMusicApiStatus();
+            }
         }, initUrlFilter);
     };
 

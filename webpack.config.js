@@ -3,7 +3,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    devtool: 'inline-cheap-source-map',
+    devtool: 'source-map',
     mode: 'development',
     entry: {
         app: {

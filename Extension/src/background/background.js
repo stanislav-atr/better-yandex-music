@@ -31,10 +31,12 @@ chrome.action.onClicked.addListener(async () => {
     }
 
     if (!isAppRunning) {
-        agent.dispatch(APP_BUNDLE_NAME);
-        sessionStorage.setSetting(IS_APP_RUNNING, true);
+        agent.dispatch(APP_BUNDLE_NAME, () => {
+            sessionStorage.setSetting(IS_APP_RUNNING, true);
+        });
     } else {
-        agent.dispatch(AGENT_NAMES.UNMOUNT_APP);
-        sessionStorage.setSetting(IS_APP_RUNNING, false);
+        agent.dispatch(AGENT_NAMES.UNMOUNT_APP, () => {
+            sessionStorage.setSetting(IS_APP_RUNNING, false);
+        });
     }
 });

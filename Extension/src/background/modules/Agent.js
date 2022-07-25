@@ -22,25 +22,20 @@ class Agent {
 
         this[UNMOUNT_APP] = (agentPrefix) => {
             const event = new Event(agentPrefix);
-            console.log(event);
-            dispatchEvent(event);
             console.log(`${agentPrefix}: Dispatching 'UNMOUNT_APP'.`);
+            dispatchEvent(event);
         };
         /* eslint-enable no-console */
     }
 
-    prepareScriptInjection(agentName) {
+    prepareScriptInjection(agentName, tabId) {
         const isFile = agentName.endsWith('.js');
-        const currentMusicTabId = sessionStorage.getSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID);
-        if (!currentMusicTabId) {
-            return null;
-        }
         const agentPayload = {};
 
         const scriptInjectionBase = {
             world: 'MAIN',
             target: {
-                tabId: currentMusicTabId,
+                tabId,
             },
             // injectImmediately: true,
         };
@@ -62,15 +57,20 @@ class Agent {
         };
     }
 
-    async dispatch(agentName) {
-        const scriptInjection = this.prepareScriptInjection(agentName);
-        if (scriptInjection === null) {
+    async dispatch(agentName, callback) {
+        const currentMusicTabId = sessionStorage.getSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID);
+        if (!currentMusicTabId) {
             throw new Error('There is no target tab at the moment of dispatch.');
         }
+        if (typeof callback !== 'undefined' && typeof callback !== 'function') {
+            throw new Error('Incorrect callback argument was given to dispatcher.');
+        }
+
+        const scriptInjection = this.prepareScriptInjection(agentName, currentMusicTabId);
 
         let result;
         try {
-            result = await chrome.scripting.executeScript(scriptInjection);
+            result = await chrome.scripting.executeScript(scriptInjection, callback);
         } catch (e) {
             throw new Error(`${UNIQUE_APP_POSTFIX}|failed to execute ${agentName}: \n ${e}`);
         }

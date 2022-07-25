@@ -18,10 +18,23 @@ import {
     useMusicApi,
     useResizeObserver,
 } from '../../hooks';
+import { UNIQUE_APP_POSTFIX, AGENT_NAMES } from '../../../background/constants';
 
 import './lyrics-window.css';
 
-export const LyricsWindow = () => {
+export const LyricsWindow = ({ base }) => {
+    useEffect(() => {
+        console.log(base);
+        window.addEventListener(
+            `${UNIQUE_APP_POSTFIX}|${AGENT_NAMES.UNMOUNT_APP}`,
+            () => {
+                console.log(`${UNIQUE_APP_POSTFIX}: unmounting app...`);
+                base.root.unmount();
+                base.container.remove();
+            },
+            { once: true },
+        );
+    }, [base]);
     const isDarkTheme = useContext(ThemeContext);
 
     const [lyrics, setLyrics] = useState(APP_MESSAGES.GREETING.VALUE);

@@ -3,16 +3,26 @@ const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-    devtool: 'inline-cheap-source-map',
+    devtool: 'source-map',
     mode: 'development',
-    entry: './src/betterLyrics.jsx',
+    entry: {
+        app: {
+            import: './Extension/src/app/betterLyrics.jsx',
+            filename: 'better-lyrics-bundle.js',
+        },
+        background: {
+            import: './Extension/src/background/background.js',
+        },
+        'content-script': {
+            import: './Extension/src/content-script.js',
+        },
+    },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'better-lyrics.js',
+        path: path.resolve(__dirname, './build'),
     },
     resolve: {
         extensions: ['.js', '.jsx'],
-        modules: ['src', 'node_modules'],
+        modules: ['Extension', 'src', 'node_modules'],
     },
     module: {
         rules: [
@@ -34,7 +44,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new CopyPlugin({
             patterns: [
-                { from: './Extension', to: './' },
+                { from: './Extension/manifest.json', to: './' },
+                { from: './Extension/assets', to: './assets' },
             ],
         }),
     ],

@@ -2,10 +2,17 @@ Now
 * rework background and cs
 * extension icons on-off for action
 * sanitize code and css
- ** error proofing & console messages styling
+ ** move some constant to global (ex app bundle name)
+ ** swap to 'is' boolean naming
+ ** error proofing & console messages styling (debug mode?)
  ** style (color vars)
  ** unify app prefix and event names
  ** thoroughly comment everything
+ ** unify filenames (hyphen/camelcase)
+ ** manifest by https://developer.chrome.com/docs/extensions/mv3/manifest/
+ ** make common constants like UNIQUE_APP_PREFIX
+ ** document everything
+* set repo protection before making public
 * make actual readme
 
 Later

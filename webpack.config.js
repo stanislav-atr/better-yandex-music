@@ -1,6 +1,7 @@
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { APP_BUNDLE_NAME } = require('./config');
 
 module.exports = {
     devtool: 'source-map',
@@ -8,7 +9,7 @@ module.exports = {
     entry: {
         app: {
             import: './Extension/src/app/betterLyrics.jsx',
-            filename: 'better-lyrics-bundle.js',
+            filename: APP_BUNDLE_NAME,
         },
         background: {
             import: './Extension/src/background/background.js',

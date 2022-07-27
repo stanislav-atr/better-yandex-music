@@ -1,6 +1,6 @@
 Now
 * rework background and cs
-* extension icons on-off for action
+* extension icons on-waiting-off for action
 * sanitize code and css
  ** move some constant to global (ex app bundle name)
  ** swap to 'is' boolean naming

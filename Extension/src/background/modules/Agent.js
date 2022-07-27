@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
 import { sessionStorage } from './SessionStorage.js';
+import { SESSION_PARAMS } from '../constants.js';
+
 import {
-    SESSION_PARAMS,
     UNIQUE_APP_POSTFIX,
     AGENT_NAMES,
-} from '../constants.js';
+} from '../../common/constants.js';
 
 const {
     GET_MUSIC_API_STATUS,

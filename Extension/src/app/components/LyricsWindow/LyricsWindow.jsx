@@ -18,7 +18,7 @@ import {
     useMusicApi,
     useResizeObserver,
 } from '../../hooks';
-import { UNIQUE_APP_POSTFIX, AGENT_NAMES } from '../../../background/constants';
+import { UNIQUE_APP_POSTFIX, AGENT_NAMES } from '../../../common/constants';
 
 import './lyrics-window.css';
 

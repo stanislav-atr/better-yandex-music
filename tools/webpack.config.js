@@ -1,9 +1,9 @@
-const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { APP_BUNDLE_NAME } = require('./config');
+import CopyPlugin from 'copy-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import { resolve, dirname } from 'path';
+import { APP_BUNDLE_NAME } from '../app-config.js';
 
-module.exports = {
+export const webpackConfiguration = {
     devtool: 'source-map',
     mode: 'development',
     entry: {
@@ -19,11 +19,11 @@ module.exports = {
         },
     },
     output: {
-        path: path.resolve(__dirname, './build'),
+        path: resolve(dirname('./Extension'), 'build'),
     },
     resolve: {
         extensions: ['.js', '.jsx'],
-        modules: ['Extension', 'src', 'node_modules'],
+        modules: ['Extension', 'node_modules'],
     },
     module: {
         rules: [
@@ -31,12 +31,16 @@ module.exports = {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
+                resolve: {
+                    fullySpecified: false,
+                },
                 options: {
                     presets: ['@babel/preset-react'],
                 },
             },
             {
                 test: /\.css$/i,
+                exclude: /(node_modules)/,
                 use: ['style-loader', 'css-loader'],
             },
         ],

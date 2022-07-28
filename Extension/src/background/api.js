@@ -1,5 +1,5 @@
 import { sessionStorage, agent } from './modules';
-import { APP_BUNDLE_NAME } from '../../../config';
+import { APP_BUNDLE_NAME } from '../../../app-config';
 import { SESSION_PARAMS } from './constants';
 import { AGENT_NAMES } from '../common/constants';
 
@@ -14,6 +14,7 @@ const {
 } = AGENT_NAMES;
 
 export const api = (function () {
+    debugger;
     const initUrlFilter = {
         url: [
             { urlMatches: 'music.yandex.([a-z])*' },

@@ -30,6 +30,9 @@ class Agent {
     }
 
     prepareScriptInjection(agentName, tabId) {
+        if (typeof agentName !== 'string') {
+            throw new Error('Invalid agent name is provided to prepareScriptInjection');
+        }
         const isFile = agentName.endsWith('.js');
         const agentPayload = {};
 

@@ -14,7 +14,6 @@ const {
 } = AGENT_NAMES;
 
 export const api = (function () {
-    debugger;
     const initUrlFilter = {
         url: [
             { urlMatches: 'music.yandex.([a-z])*' },

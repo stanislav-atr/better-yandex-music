@@ -32,7 +32,7 @@ const bundlingCallback = (err, stats) => {
 const bundleRunner = (config, watch = false) => {
     const compiler = webpack(config);
     if (watch) {
-        compiler.watch({ aggregateTimeout: 1000 }, bundlingCallback);
+        compiler.watch({ }, bundlingCallback);
     } else {
         compiler.run(bundlingCallback);
     }

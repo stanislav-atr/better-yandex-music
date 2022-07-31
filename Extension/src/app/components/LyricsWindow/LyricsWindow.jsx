@@ -2,62 +2,43 @@
 import React, {
     useState,
     useRef,
-    useEffect,
     useContext,
 } from 'react';
 import classNames from 'classnames';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
-import { LyricsLine } from '../LyricsLine';
+import { LyricsBox } from '../LyricsBox';
 import { ThemeContext } from '../../providers';
 import {
-    APP_MESSAGES,
     CONTAINER_RATIOS,
     DEFAULT_STYLE_PARAMS,
 } from '../../constants';
 import {
-    useMusicApi,
     useResizeObserver,
+    useUnmountApp,
 } from '../../hooks';
-import { UNIQUE_APP_POSTFIX, AGENT_NAMES } from '../../../common/constants';
 
 import './lyrics-window.css';
 
 export const LyricsWindow = ({ base }) => {
-    useEffect(() => {
-        console.log(base);
-        window.addEventListener(
-            `${UNIQUE_APP_POSTFIX}|${AGENT_NAMES.UNMOUNT_APP}`,
-            () => {
-                console.log(`${UNIQUE_APP_POSTFIX}: unmounting app...`);
-                base.root.unmount();
-                base.container.remove();
-            },
-            { once: true },
-        );
-    }, [base]);
     const isDarkTheme = useContext(ThemeContext);
 
-    const [lyrics, setLyrics] = useState(APP_MESSAGES.GREETING.VALUE);
+    const rndRef = useRef();
+
     const [fontSize, setFontSize] = useState(DEFAULT_STYLE_PARAMS.FONT_SIZE);
     const [verseBreakHeight, setVerseBreakHeight] = useState(DEFAULT_STYLE_PARAMS.VERSE_BREAK_HEIGHT);
     const [scrollBlurHeight, setScrollBlurHeight] = useState(DEFAULT_STYLE_PARAMS.SCROLL_BLUR_HEIGHT);
 
-    const textBoxRef = useRef();
-
-    useMusicApi(setLyrics);
-    useResizeObserver(textBoxRef, (entries) => {
+    useUnmountApp(base, rndRef);
+    useResizeObserver(rndRef, (entries) => {
         const { width } = entries[0].contentRect;
         setFontSize(`${width / CONTAINER_RATIOS.FONT_RATIO}`);
         setVerseBreakHeight(`${width / CONTAINER_RATIOS.VERSE_BREAK_RATIO}`);
         setScrollBlurHeight(`${width / CONTAINER_RATIOS.SCROLL_BLUR_RATIO}`);
     });
 
-    useEffect(() => {
-        textBoxRef.current.scrollTo(0, 0);
-    }, [lyrics]);
-
     return (
         <ResizeDragWrapper
+            ref={rndRef}
             bounds="window"
             className={classNames('ResizeDragWrapper', { 'light_theme': !isDarkTheme })}
             default={{
@@ -74,24 +55,10 @@ export const LyricsWindow = ({ base }) => {
                     className="scroll_blur"
                     style={{ height: `${scrollBlurHeight}px` }}
                 />
-                <div
-                    ref={textBoxRef}
-                    className="text_box"
-                    style={{
-                        fontSize: `${fontSize}px`,
-                    }}
-                >
-                    {lyrics.split('\n').map((line) => {
-                        const key = Math.random().toString();
-                        const isText = line.length !== 0;
-                        return isText ? <LyricsLine key={key} line={line} /> : (
-                            <div
-                                key={key}
-                                style={{ height: `${verseBreakHeight}px` }}
-                            />
-                        );
-                    })}
-                </div>
+                <LyricsBox
+                    fontSize={fontSize}
+                    verseBreakHeight={verseBreakHeight}
+                />
             </div>
         </ResizeDragWrapper>
     );

@@ -1,4 +1,5 @@
 Now
+* fix scrolling to the top of the window on new song
 * rework background and cs
 * extension icons on-waiting-off for action
 * sanitize code and css

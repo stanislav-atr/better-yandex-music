@@ -29,6 +29,11 @@ class Agent {
         /* eslint-enable no-console */
     }
 
+    /**
+     * @param {string} agentName name of the agent or file
+     * @param {number} tabId
+     * @returns {Object} scriptInjection object
+     */
     prepareScriptInjection(agentName, tabId) {
         if (typeof agentName !== 'string') {
             throw new Error('Invalid agent name is provided to prepareScriptInjection');
@@ -61,6 +66,12 @@ class Agent {
         };
     }
 
+    /**
+     * Execute script by agent name
+     * @param {string} agentName name of the agent or file to inject into page
+     * @param {*} callback
+     * @returns {Object} return value of injected agent
+     */
     async dispatch(agentName, callback) {
         const currentMusicTabId = sessionStorage.getSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID);
         if (!currentMusicTabId) {

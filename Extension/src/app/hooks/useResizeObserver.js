@@ -1,13 +1,21 @@
+/* eslint-disable no-undef */
 import { useEffect } from 'react';
 
 export const useResizeObserver = (observableRef, observerCallback) => {
     useEffect(() => {
-        const refNode = observableRef.current;
-        // eslint-disable-next-line no-undef
+        let observableElem;
+        if (observableRef?.current?.nodeName) {
+            // Ref of standard element
+            observableElem = observableRef.current;
+        } else if (observableRef?.current?.resizableElement?.current) {
+            // Ref of custom component
+            observableElem = observableRef.current.resizableElement.current;
+        }
+
         const rObserver = new ResizeObserver(observerCallback);
-        rObserver.observe(refNode);
+        rObserver.observe(observableElem);
         return () => {
-            rObserver.unobserve(refNode);
+            rObserver.unobserve(observableElem);
         };
     }, [observableRef, observerCallback]);
 };

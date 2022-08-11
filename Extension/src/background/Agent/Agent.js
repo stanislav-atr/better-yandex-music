@@ -3,13 +3,13 @@ import { sessionStorage } from '../storages/SessionStorage.js';
 import { SESSION_PARAMS } from '../constants.js';
 
 import {
-    UNIQUE_APP_POSTFIX,
+    UNIQUE_APP_PREFIX,
     AGENT_NAMES,
 } from '../../common/constants.js';
 
 const {
     GET_MUSIC_API_STATUS,
-    UNMOUNT_APP,
+    CLOSE_APP,
 } = AGENT_NAMES;
 
 class Agent {
@@ -21,9 +21,9 @@ class Agent {
             return musicApiStatus;
         };
 
-        this[UNMOUNT_APP] = (agentPrefix) => {
+        this[CLOSE_APP] = (agentPrefix) => {
             const event = new Event(agentPrefix);
-            console.log(`${agentPrefix}: Dispatching 'UNMOUNT_APP'.`);
+            console.log(`${agentPrefix}: Dispatching 'CLOSE_APP'.`);
             dispatchEvent(event);
         };
         /* eslint-enable no-console */
@@ -55,7 +55,7 @@ class Agent {
             scriptInjectionExecution = { files: [agentName] };
         } else {
             scriptInjectionExecution = {
-                args: [`${UNIQUE_APP_POSTFIX}|${agentName}`, agentPayload],
+                args: [`${UNIQUE_APP_PREFIX}|${agentName}`, agentPayload],
                 func: this[agentName],
             };
         }
@@ -87,7 +87,7 @@ class Agent {
         try {
             result = await chrome.scripting.executeScript(scriptInjection, callback);
         } catch (e) {
-            throw new Error(`${UNIQUE_APP_POSTFIX}|failed to execute ${agentName}: \n ${e}`);
+            throw new Error(`${UNIQUE_APP_PREFIX}|failed to execute ${agentName}: \n ${e}`);
         }
         return result;
     }

@@ -12,7 +12,7 @@ import {
     RND_MIN_MAX_SIZES,
 } from '../../constants';
 import {
-    useUnmountApp,
+    useCloseApp,
 } from '../../hooks';
 
 import './lyrics-window.css';
@@ -39,7 +39,7 @@ export const LyricsWindow = ({ base }) => {
     };
     const [appParams, dispatch] = useReducer(reducer, defaultAppParams);
 
-    useUnmountApp(base);
+    useCloseApp(base, appParams);
 
     const observeRndPos = (e, dragData) => {
         const { x, y } = dragData;

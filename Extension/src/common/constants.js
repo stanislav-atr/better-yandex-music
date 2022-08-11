@@ -1,11 +1,11 @@
-const UNIQUE_APP_POSTFIX = 'better-lyrics';
+const UNIQUE_APP_PREFIX = 'better-lyrics';
 
 const AGENT_NAMES = {
     GET_MUSIC_API_STATUS: 'get-music-api-status',
-    UNMOUNT_APP: 'unmount-app',
+    CLOSE_APP: 'close-app',
 };
 
 export {
-    UNIQUE_APP_POSTFIX,
+    UNIQUE_APP_PREFIX,
     AGENT_NAMES,
 };

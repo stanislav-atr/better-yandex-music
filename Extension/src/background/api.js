@@ -62,7 +62,7 @@ export const api = (function () {
                     sessionStorage.setSetting(IS_APP_RUNNING, true);
                 });
             } else {
-                agent.dispatch(AGENT_NAMES.UNMOUNT_APP, () => {
+                agent.dispatch(AGENT_NAMES.CLOSE_APP, () => {
                     sessionStorage.setSetting(IS_APP_RUNNING, false);
                 });
             }

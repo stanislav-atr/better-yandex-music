@@ -12,6 +12,8 @@ const {
 
 const {
     GET_MUSIC_API_STATUS,
+    SEND_APP_PARAMS,
+    CLOSE_APP,
 } = AGENT_NAMES;
 
 export const api = (function () {
@@ -37,7 +39,7 @@ export const api = (function () {
     };
 
     const getMusicApiStatus = async () => {
-        const response = await agent.dispatch(GET_MUSIC_API_STATUS);
+        const response = await agent.dispatch(GET_MUSIC_API_STATUS, {});
         const { result: musicApiStatus } = response[0];
         sessionStorage.setSetting(MUSIC_API_READY, !!musicApiStatus);
         // eslint-disable-next-line no-console
@@ -58,11 +60,14 @@ export const api = (function () {
             }
 
             if (!isAppRunning) {
-                agent.dispatch(APP_BUNDLE_NAME, () => {
+                agent.dispatch(APP_BUNDLE_NAME, {}, async () => {
                     sessionStorage.setSetting(IS_APP_RUNNING, true);
+                    const appParams = await chrome.storage.local.get('appParams');
+                    await agent.dispatch(SEND_APP_PARAMS, { payload: appParams });
                 });
+                // code here will run before callback above
             } else {
-                agent.dispatch(AGENT_NAMES.CLOSE_APP, () => {
+                agent.dispatch(CLOSE_APP, {}, () => {
                     sessionStorage.setSetting(IS_APP_RUNNING, false);
                 });
             }

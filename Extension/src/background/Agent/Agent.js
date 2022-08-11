@@ -9,6 +9,7 @@ import {
 
 const {
     GET_MUSIC_API_STATUS,
+    SEND_APP_PARAMS,
     CLOSE_APP,
 } = AGENT_NAMES;
 
@@ -19,6 +20,12 @@ class Agent {
             const musicApiStatus = window?.Seq?.isReady();
             console.log(`${agentPrefix}: Music API status: ${musicApiStatus}`);
             return musicApiStatus;
+        };
+
+        this[SEND_APP_PARAMS] = async (agentPrefix, payload) => {
+            const event = new CustomEvent(agentPrefix, { detail: payload });
+            console.log(`${agentPrefix}: Dispatching 'SEND_APP_PARAMS'.`);
+            dispatchEvent(event);
         };
 
         this[CLOSE_APP] = (agentPrefix) => {
@@ -34,12 +41,11 @@ class Agent {
      * @param {number} tabId
      * @returns {Object} scriptInjection object
      */
-    prepareScriptInjection(agentName, tabId) {
+    prepareScriptInjection(agentName, tabId, payload) {
         if (typeof agentName !== 'string') {
             throw new Error('Invalid agent name is provided to prepareScriptInjection');
         }
         const isFile = agentName.endsWith('.js');
-        const agentPayload = {};
 
         const scriptInjectionBase = {
             world: 'MAIN',
@@ -55,7 +61,7 @@ class Agent {
             scriptInjectionExecution = { files: [agentName] };
         } else {
             scriptInjectionExecution = {
-                args: [`${UNIQUE_APP_PREFIX}|${agentName}`, agentPayload],
+                args: [`${UNIQUE_APP_PREFIX}|${agentName}`, payload || {}],
                 func: this[agentName],
             };
         }
@@ -72,7 +78,7 @@ class Agent {
      * @param {*} callback
      * @returns {Object} return value of injected agent
      */
-    async dispatch(agentName, callback) {
+    async dispatch(agentName, payload, callback) {
         const currentMusicTabId = sessionStorage.getSetting(SESSION_PARAMS.CURRENT_MUSIC_TAB_ID);
         if (!currentMusicTabId) {
             throw new Error('There is no target tab at the moment of dispatch.');
@@ -81,7 +87,7 @@ class Agent {
             throw new Error('Incorrect callback argument was given to dispatcher.');
         }
 
-        const scriptInjection = this.prepareScriptInjection(agentName, currentMusicTabId);
+        const scriptInjection = this.prepareScriptInjection(agentName, currentMusicTabId, payload);
 
         let result;
         try {

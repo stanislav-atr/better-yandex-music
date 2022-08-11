@@ -1,5 +1,7 @@
 Now
-* use background to save app params
+* use background to save app params on action click when closing
+* save app params when ap is closed due to page close/reload
+* schematize app-cs-agent-bg messages to conform to a single logic
 * fix scrolling to the top of the window on new song
 * redo app starting (static content-script + listening to agent event)
 * extension icons on-waiting-off for action

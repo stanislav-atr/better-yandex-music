@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import { sessionStorage } from './SessionStorage.js';
+import { sessionStorage } from '../storages/SessionStorage.js';
 import { SESSION_PARAMS } from '../constants.js';
 
 import {

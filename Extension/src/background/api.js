@@ -1,4 +1,5 @@
-import { sessionStorage, agent } from './modules';
+import { agent } from './Agent';
+import { sessionStorage } from './storages';
 import { APP_BUNDLE_NAME } from '../../../app-config';
 import { SESSION_PARAMS } from './constants';
 import { AGENT_NAMES } from '../common/constants';

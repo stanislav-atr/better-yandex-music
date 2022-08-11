@@ -34,6 +34,11 @@ const CONTAINER_RATIOS = {
     SCROLL_BLUR_RATIO: 14.1,
 };
 
+const RND_MIN_MAX_SIZES = {
+    RND_MIN_WIDTH: '200',
+    RND_MIN_HEIGHT: '355',
+};
+
 const CONTAINER_NODE_ID = 'root:better_lyrics';
 const DARK_THEME_KEYWORD = 'black';
 const DEFAULT_IS_DARK_THEME = true;
@@ -44,6 +49,7 @@ export {
     APP_MESSAGES,
     CONTAINER_NODE_ID,
     CONTAINER_RATIOS,
+    RND_MIN_MAX_SIZES,
     DARK_THEME_KEYWORD,
     DEFAULT_IS_DARK_THEME,
 };

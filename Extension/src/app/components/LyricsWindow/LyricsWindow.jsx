@@ -9,6 +9,7 @@ import { LyricsBox } from '../LyricsBox';
 import { ThemeContext } from '../../providers';
 import {
     CONTAINER_RATIOS,
+    RND_MIN_MAX_SIZES,
 } from '../../constants';
 import {
     useUnmountApp,
@@ -16,32 +17,38 @@ import {
 
 import './lyrics-window.css';
 
-const DEFAULT_APP_PARAMS = {
+const defaultAppParams = {
     fontSize: '15',
     verseBreakHeight: '12.5',
     scrollBlurHeight: '25.5',
-    RND_WIDTH: 360,
-    RND_HEIGHT: 640,
-    RND_MIN_WIDTH: '200',
-    RND_MIN_HEIGHT: '355',
+    rndSize: {
+        width: 360,
+        height: 640,
+    },
+    rndPos: {
+        x: 0,
+        y: 0,
+    },
 };
 
 export const LyricsWindow = ({ base }) => {
     const isDarkTheme = useContext(ThemeContext);
 
     const reducer = (state, action) => {
-        return {
-            ...state,
-            ...action,
-        };
+        return { ...state, ...action };
     };
-    const [appParams, dispatch] = useReducer(reducer, DEFAULT_APP_PARAMS);
+    const [appParams, dispatch] = useReducer(reducer, defaultAppParams);
 
     useUnmountApp(base);
 
-    const observeRnd = (e, dir, refToElement) => { // throttle this?
-        console.log('RESIZE');
-        const { clientWidth } = refToElement;
+    const observeRndPos = (e, dragData) => {
+        const { x, y } = dragData;
+        dispatch({ rndPos: { x, y } });
+    };
+
+    const observeRndSize = (e, dir, refToElement) => {
+        const { clientWidth, clientHeight } = refToElement;
+        dispatch({ rndSize: { width: clientWidth, height: clientHeight } });
         dispatch({ fontSize: `${clientWidth / CONTAINER_RATIOS.VERSE_BREAK_RATIO}` });
         dispatch({ verseBreakHeight: `${clientWidth / CONTAINER_RATIOS.VERSE_BREAK_RATIO}` });
         dispatch({ scrollBlurHeight: `${clientWidth / CONTAINER_RATIOS.SCROLL_BLUR_RATIO}` });
@@ -52,14 +59,13 @@ export const LyricsWindow = ({ base }) => {
             bounds="window"
             className={classNames('ResizeDragWrapper', { 'light_theme': !isDarkTheme })}
             default={{
-                x: 0,
-                y: 0,
-                width: DEFAULT_APP_PARAMS.RND_WIDTH,
-                height: DEFAULT_APP_PARAMS.RND_HEIGHT,
+                ...appParams.rndPos,
+                ...appParams.rndSize,
             }}
-            minWidth={DEFAULT_APP_PARAMS.RND_MIN_WIDTH}
-            minHeight={DEFAULT_APP_PARAMS.RND_MIN_HEIGHT}
-            onResize={observeRnd}
+            minWidth={RND_MIN_MAX_SIZES.RND_MIN_WIDTH}
+            minHeight={RND_MIN_MAX_SIZES.RND_MIN_HEIGHT}
+            onResize={observeRndSize}
+            onDrag={observeRndPos}
         >
             <div className="lyrics_window">
                 <div

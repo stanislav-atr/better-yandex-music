@@ -1,14 +1,14 @@
 import CopyPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import { resolve, dirname } from 'path';
-import { APP_BUNDLE_NAME } from '../app-config.js';
+import { APP_BUNDLE_NAME } from './app-config.js';
 
 export const webpackConfiguration = {
     devtool: 'source-map',
     mode: 'development',
     entry: {
         app: {
-            import: './Extension/src/app/betterLyrics.jsx',
+            import: './Extension/src/app/index.jsx',
             filename: APP_BUNDLE_NAME,
         },
         background: {

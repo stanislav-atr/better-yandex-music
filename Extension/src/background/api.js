@@ -12,7 +12,7 @@ const {
 
 const {
     GET_MUSIC_API_STATUS,
-    SEND_APP_PARAMS,
+    START_APP,
     CLOSE_APP,
 } = AGENT_NAMES;
 
@@ -60,11 +60,9 @@ export const api = (function () {
             }
 
             if (!isAppRunning) {
-                agent.dispatch(APP_BUNDLE_NAME, {}, async () => {
-                    sessionStorage.setSetting(IS_APP_RUNNING, true);
-                    const appParams = await chrome.storage.local.get('appParams');
-                    await agent.dispatch(SEND_APP_PARAMS, { payload: appParams });
-                });
+                sessionStorage.setSetting(IS_APP_RUNNING, true);
+                const appParams = await chrome.storage.local.get('appParams');
+                await agent.dispatch(START_APP, { payload: appParams });
                 // code here will run before callback above
             } else {
                 agent.dispatch(CLOSE_APP, {}, () => {
@@ -82,6 +80,7 @@ export const api = (function () {
             }
 
             await initSessionStorage(tabId);
+            agent.dispatch(APP_BUNDLE_NAME, {});
             initAction();
         }, initUrlFilter);
     };

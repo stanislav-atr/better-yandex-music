@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import webpack from 'webpack';
-import { webpackConfiguration } from './webpack.config.js';
+import { webpackConfiguration } from '../webpack.config.js';
 
 const watch = process.argv[2] === '--watch';
 

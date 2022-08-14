@@ -2,7 +2,7 @@ const UNIQUE_APP_PREFIX = 'better-lyrics';
 
 const AGENT_NAMES = {
     GET_MUSIC_API_STATUS: 'get-music-api-status',
-    SEND_APP_PARAMS: 'send-app-params',
+    START_APP: 'start-app',
     CLOSE_APP: 'close-app',
 };
 

@@ -9,7 +9,7 @@ import {
 
 const {
     GET_MUSIC_API_STATUS,
-    SEND_APP_PARAMS,
+    START_APP,
     CLOSE_APP,
 } = AGENT_NAMES;
 
@@ -22,9 +22,9 @@ class Agent {
             return musicApiStatus;
         };
 
-        this[SEND_APP_PARAMS] = async (agentPrefix, payload) => {
+        this[START_APP] = async (agentPrefix, payload) => {
             const event = new CustomEvent(agentPrefix, { detail: payload });
-            console.log(`${agentPrefix}: Dispatching 'SEND_APP_PARAMS'.`);
+            console.log(`${agentPrefix}: Dispatching 'START_APP'.`);
             dispatchEvent(event);
         };
 

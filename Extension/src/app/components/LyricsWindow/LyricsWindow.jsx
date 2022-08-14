@@ -33,31 +33,32 @@ const defaultAppParams = {
     },
 };
 
-export const LyricsWindow = ({ base }) => {
+export const LyricsWindow = ({ base, storedAppParams }) => {
     const isDarkTheme = useContext(ThemeContext);
 
     const reducer = (state, action) => {
         return { ...state, ...action };
     };
-    const [appParams, dispatch] = useReducer(reducer, defaultAppParams);
+    console.log(storedAppParams)
+    const [appParams, dispatch] = useReducer(reducer, storedAppParams || defaultAppParams);
 
     // Use one custom hook useAddEventListener(event, eHandler, additionalCode)
-    useEffect(() => {
-        const eventName = `${UNIQUE_APP_PREFIX}|${AGENT_NAMES.SEND_APP_PARAMS}`;
-        const savedParamsHandler = (e) => {
-            const { appParams: savedAppParams } = e.detail.payload;
-            console.log(savedAppParams);
-            /* IF NOT EMPTY: */dispatch(savedAppParams);
-        };
+    // useEffect(() => {
+    //     const eventName = `${UNIQUE_APP_PREFIX}|${AGENT_NAMES.SEND_APP_PARAMS}`;
+    //     const savedParamsHandler = (e) => {
+    //         const { appParams: savedAppParams } = e.detail.payload;
+    //         console.log(savedAppParams);
+    //         /* IF NOT EMPTY: */dispatch(savedAppParams);
+    //     };
 
-        window.addEventListener(
-            eventName,
-            savedParamsHandler,
-            { once: true },
-        );
+    //     window.addEventListener(
+    //         eventName,
+    //         savedParamsHandler,
+    //         { once: true },
+    //     );
 
-        return () => window.removeEventListener(eventName, savedParamsHandler);
-    });
+    //     return () => window.removeEventListener(eventName, savedParamsHandler);
+    // });
     useCloseApp(base, appParams);
 
     const observeRndPos = (e, dragData) => { // !!!!!throttle these

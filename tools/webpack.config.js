@@ -8,7 +8,7 @@ export const webpackConfiguration = {
     mode: 'development',
     entry: {
         app: {
-            import: './Extension/src/app/betterLyrics.jsx',
+            import: './Extension/src/app/index.jsx',
             filename: APP_BUNDLE_NAME,
         },
         background: {

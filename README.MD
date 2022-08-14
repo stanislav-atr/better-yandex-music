@@ -1,26 +1,29 @@
 Now
-* use background to save app params on action click when closing
-* save app params when ap is closed due to page close/reload
+* keep service worker awake
+* manage sourcemaps in build
+* refactor background and cs
+
+Logs and errors management
+* unify and organize app prefix, event names, agent names, agent prefix
 * agent-prefix maker
 * schematize app-cs-agent-bg messages to conform to a single logic
-* improve app messages layout
+* error proofing & console messages styling (debug mode?)
+
+Visual styling matters
 * fix scrolling to the top of the window on new song
-* redo app starting (static content-script + listening to agent event)
-* extension icons on-waiting-off for action
-* big comment section for files
-* sanitize code and css
- ** rework background and cs
- ** manage constants better
- ** swap to 'is' boolean naming
- ** error proofing & console messages styling (debug mode?)
- ** style (color vars)
- ** unify app prefix and event names
- ** unify filenames (hyphen/camelcase)
- ** manifest by https://developer.chrome.com/docs/extensions/mv3/manifest/
- ** document everything
- ** thoroughly comment everything
-* set repo protection before making public
+* improve app messages layout
+* extension icons off-ready-running for action
+
+Sanitize code and css
+ * swap to 'is' boolean naming
+ * manage constants better
+ * user vars for app colors
+ * thoroughly document everything, add big comment section for important files
+
+Finishing touches
+* manifest as per https://developer.chrome.com/docs/extensions/mv3/manifest/
 * make actual readme
+* set repo protection before making public
 
 Later
 * (try postcss)

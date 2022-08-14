@@ -21,6 +21,11 @@ export const useCloseApp = (base, appParams) => {
             { once: true },
         );
 
-        return () => window.removeEventListener(`${UNIQUE_APP_PREFIX}|${AGENT_NAMES.CLOSE_APP}`, closeAppHandler);
+        window.addEventListener('beforeunload', closeAppHandler);
+
+        return () => {
+            window.removeEventListener(`${UNIQUE_APP_PREFIX}|${AGENT_NAMES.CLOSE_APP}`, closeAppHandler);
+            window.removeEventListener('beforeunload', closeAppHandler);
+        };
     }, [base, appParams]);
 };

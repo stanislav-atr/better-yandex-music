@@ -1,6 +1,5 @@
 /* eslint-disable , no-undef */
 import React, {
-    useEffect,
     useReducer,
     useContext,
 } from 'react';
@@ -8,7 +7,6 @@ import classNames from 'classnames';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
 import { LyricsBox } from '../LyricsBox';
 import { ThemeContext } from '../../providers';
-import { UNIQUE_APP_PREFIX, AGENT_NAMES } from '../../../common/constants';
 import {
     CONTAINER_RATIOS,
     RND_MIN_MAX_SIZES,
@@ -39,26 +37,8 @@ export const LyricsWindow = ({ base, storedAppParams }) => {
     const reducer = (state, action) => {
         return { ...state, ...action };
     };
-    console.log(storedAppParams)
     const [appParams, dispatch] = useReducer(reducer, storedAppParams || defaultAppParams);
 
-    // Use one custom hook useAddEventListener(event, eHandler, additionalCode)
-    // useEffect(() => {
-    //     const eventName = `${UNIQUE_APP_PREFIX}|${AGENT_NAMES.SEND_APP_PARAMS}`;
-    //     const savedParamsHandler = (e) => {
-    //         const { appParams: savedAppParams } = e.detail.payload;
-    //         console.log(savedAppParams);
-    //         /* IF NOT EMPTY: */dispatch(savedAppParams);
-    //     };
-
-    //     window.addEventListener(
-    //         eventName,
-    //         savedParamsHandler,
-    //         { once: true },
-    //     );
-
-    //     return () => window.removeEventListener(eventName, savedParamsHandler);
-    // });
     useCloseApp(base, appParams);
 
     const observeRndPos = (e, dragData) => { // !!!!!throttle these
@@ -81,12 +61,6 @@ export const LyricsWindow = ({ base, storedAppParams }) => {
         <ResizeDragWrapper
             bounds="window"
             className={classNames('ResizeDragWrapper', { 'light_theme': !isDarkTheme })}
-            // default={{
-            //     x: appParams.rndPos.x,
-            //     y: appParams.rndPos.y,
-            //     width: appParams.rndSize.width,
-            //     height: appParams.rndSize.height,
-            // }}
             position={{
                 x: appParams.rndPos.x,
                 y: appParams.rndPos.y,

@@ -1,13 +1,8 @@
 /* eslint-disable , no-undef */
-import React, { useState } from 'react';
+import React from 'react';
 import { LyricsLine } from '../LyricsLine';
-import { APP_MESSAGES } from '../../constants';
-import { useMusicApi } from '../../hooks';
 
-export const LyricsBox = ({ verseBreakHeight, fontSize }) => {
-    const [lyrics, setLyrics] = useState(APP_MESSAGES.GREETING.VALUE);
-    useMusicApi(setLyrics);
-
+export const LyricsBox = ({ lyrics, verseBreakHeight, fontSize }) => {
     return (
         <div
             className="lyrics_box"

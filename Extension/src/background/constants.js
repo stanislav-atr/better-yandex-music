@@ -14,7 +14,7 @@ const DEFAULT_APP_PARAMS = {
     },
     rndPos: {
         x: 0,
-        y: 0,
+        y: 3,
     },
 };
 

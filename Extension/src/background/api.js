@@ -48,7 +48,6 @@ export const api = (function () {
 
     const initAction = () => {
         chrome.action.onClicked.addListener(async (tab) => {
-            console.log(tab);
             const currentMusicTabId = sessionStorage.getSetting(CURRENT_MUSIC_TAB_ID);
             if (!currentMusicTabId
                 || tab.id !== currentMusicTabId
@@ -80,7 +79,6 @@ export const api = (function () {
     };
 
     const init = async () => {
-        console.log('START');
         await chrome.storage.local.set({ appParams: DEFAULT_APP_PARAMS });
 
         chrome.webNavigation.onCompleted.addListener(async (details) => {

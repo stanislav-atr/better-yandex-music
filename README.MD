@@ -1,19 +1,23 @@
 Now
-* keep service worker awake
-* manage sourcemaps in build
-* improve track detection
-* refactor background and cs
-* React profiling
+* Color theme is not chosen properly if current theme is not matching apps last color
+* bug with SW not working on action click
 
+Next
+* manage sourcemaps in build (dedicated folder + resolved by chrome)
+
+Refactor background and cs
+Refactor app using react profiler
+* messenger class for app?
+* revise class and component names
+* revise Seq/Mu api usage
 
 Logs and errors management
-* unify and organize app prefix, event names, agent names, agent prefix
+* unify and organize app & agent prefixes, event & agent names
 * agent-prefix maker
 * schematize app-cs-agent-bg messages to conform to a single logic
 * error proofing & console messages styling (debug mode?)
 
 Visual styling matters
-* fix scrolling to the top of the window on new song
 * improve app messages layout
 * extension icons off-ready-running for action
 * improve styling params overall
@@ -34,6 +38,7 @@ Later
 * (try postcss)
 * wave svg for scroll blur
 * render scroll blur smoothly on scroll independently from padding
+* improve app to manage multiple music tabs bettter
 
 Later-later
 * typescript

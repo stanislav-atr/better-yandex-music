@@ -1,7 +1,9 @@
 /* eslint-disable , no-undef */
 import React, {
+    useState,
     useReducer,
     useContext,
+    useRef,
 } from 'react';
 import classNames from 'classnames';
 import { Rnd as ResizeDragWrapper } from 'react-rnd';
@@ -10,20 +12,26 @@ import { ThemeContext } from '../../providers';
 import {
     CONTAINER_RATIOS,
     RND_MIN_MAX_SIZES,
+    APP_MESSAGES,
 } from '../../constants';
 import {
+    useMusicApi,
     useCloseApp,
 } from '../../hooks';
 
 import './lyrics-window.css';
 
-export const LyricsWindow = ({ base, initAppParams }) => {
+export const LyricsWindow = ({ base, initAppParams, initLyrics }) => {
     const isDarkTheme = useContext(ThemeContext);
 
     const reducer = (state, action) => {
         return { ...state, ...action };
     };
     const [appParams, dispatch] = useReducer(reducer, initAppParams);
+    const [lyrics, setLyrics] = useState(initLyrics || APP_MESSAGES.GREETING.VALUE);
+    const lyricsWindowRef = useRef();
+
+    useMusicApi(setLyrics, lyricsWindowRef);
 
     useCloseApp(base, appParams);
 
@@ -60,12 +68,16 @@ export const LyricsWindow = ({ base, initAppParams }) => {
             onResize={observeRndSize}
             onDrag={observeRndPos}
         >
-            <div className="lyrics_window">
+            <div
+                className="lyrics_window"
+                ref={lyricsWindowRef}
+            >
                 <div
                     className="scroll_blur"
                     style={{ height: `${appParams.scrollBlurHeight}px` }}
                 />
                 <LyricsBox
+                    lyrics={lyrics}
                     fontSize={appParams.fontSize}
                     verseBreakHeight={appParams.verseBreakHeight}
                 />

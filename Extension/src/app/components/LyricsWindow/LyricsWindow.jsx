@@ -17,36 +17,22 @@ import {
 
 import './lyrics-window.css';
 
-const defaultAppParams = {
-    fontSize: '15',
-    verseBreakHeight: '12.5',
-    scrollBlurHeight: '25.5',
-    rndSize: {
-        width: 360,
-        height: 640,
-    },
-    rndPos: {
-        x: 0,
-        y: 0,
-    },
-};
-
-export const LyricsWindow = ({ base, storedAppParams }) => {
+export const LyricsWindow = ({ base, initAppParams }) => {
     const isDarkTheme = useContext(ThemeContext);
 
     const reducer = (state, action) => {
         return { ...state, ...action };
     };
-    const [appParams, dispatch] = useReducer(reducer, storedAppParams || defaultAppParams);
+    const [appParams, dispatch] = useReducer(reducer, initAppParams);
 
     useCloseApp(base, appParams);
 
-    const observeRndPos = (e, dragData) => { // !!!!!throttle these
+    const observeRndPos = (e, dragData) => {
         const { x, y } = dragData;
         dispatch({ rndPos: { x, y } });
     };
 
-    const observeRndSize = (e, dir, refToElement, delta, position) => { // !!!!!throttle these
+    const observeRndSize = (e, dir, refToElement, delta, position) => {
         const { clientWidth, clientHeight } = refToElement;
         dispatch({
             rndPos: position,

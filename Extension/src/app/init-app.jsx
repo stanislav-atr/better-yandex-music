@@ -13,7 +13,7 @@ export const initApp = (appParams) => {
         <ThemeProvider>
             <LyricsWindow
                 base={{ container, root }}
-                storedAppParams={appParams}
+                initAppParams={appParams}
             />
         </ThemeProvider>
     ));

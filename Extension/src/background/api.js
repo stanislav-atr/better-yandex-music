@@ -1,7 +1,7 @@
 import { agent } from './Agent';
 import { sessionStorage } from './storages';
 import { APP_BUNDLE_NAME } from '../../../app-config';
-import { SESSION_PARAMS } from './constants';
+import { SESSION_PARAMS, DEFAULT_APP_PARAMS } from './constants';
 import { AGENT_NAMES } from '../common/constants';
 
 const {
@@ -17,7 +17,7 @@ const {
 } = AGENT_NAMES;
 
 export const api = (function () {
-    const initUrlFilter = {
+    const urlFilter = {
         url: [
             { urlMatches: 'music.yandex.([a-z])*' },
         ],
@@ -47,8 +47,15 @@ export const api = (function () {
     };
 
     const initAction = () => {
-        chrome.action.onClicked.addListener(async () => {
+        chrome.action.onClicked.addListener(async (tab) => {
+            console.log(tab);
             const currentMusicTabId = sessionStorage.getSetting(CURRENT_MUSIC_TAB_ID);
+            if (!currentMusicTabId
+                || tab.id !== currentMusicTabId
+                || tab.status !== 'complete') {
+                return;
+            }
+
             const musicApiReady = sessionStorage.getSetting(MUSIC_API_READY);
             const isAppRunning = sessionStorage.getSetting(IS_APP_RUNNING);
             const isPageReady = currentMusicTabId && musicApiReady;
@@ -73,6 +80,9 @@ export const api = (function () {
     };
 
     const init = async () => {
+        console.log('START');
+        await chrome.storage.local.set({ appParams: DEFAULT_APP_PARAMS });
+
         chrome.webNavigation.onCompleted.addListener(async (details) => {
             const { tabId, frameType } = details;
             if (frameType !== 'outermost_frame') {
@@ -81,8 +91,9 @@ export const api = (function () {
 
             await initSessionStorage(tabId);
             agent.dispatch(APP_BUNDLE_NAME, {});
-            initAction();
-        }, initUrlFilter);
+        }, urlFilter);
+
+        initAction();
     };
 
     return {

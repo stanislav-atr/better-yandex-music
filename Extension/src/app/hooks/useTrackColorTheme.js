@@ -5,20 +5,17 @@ import { isDarkThemeKeyword } from '../utils';
 export const useTrackColorTheme = (setIsDarkTheme) => {
     useEffect(() => {
         const handler = {
-            set(...args) {
-                const property = args[1];
-                const value = args[2];
-                const success = Reflect.set(args);
+            set(target, prop, val, receiver) {
+                const success = Reflect.set(target, prop, val, receiver);
                 if (!success) {
                     return success;
                 }
-                if (property === 'theme') {
-                    setIsDarkTheme(isDarkThemeKeyword(value));
+                if (prop === 'theme') {
+                    setIsDarkTheme(isDarkThemeKeyword(val));
                 }
                 return success;
             },
         };
-
         window.Mu.settings = new Proxy(window.Mu.settings, handler);
     }, [setIsDarkTheme]);
 };

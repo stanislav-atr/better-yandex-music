@@ -1,6 +1,6 @@
 Now
-* Color theme is not chosen properly if current theme is not matching apps last color
-* bug with SW not working on action click
+* bug with app not opening/closing on action click (sw)
+* unify and organize app & agent prefixes, event & agent names
 
 Next
 * manage sourcemaps in build (dedicated folder + resolved by chrome)
@@ -12,7 +12,6 @@ Refactor app using react profiler
 * revise Seq/Mu api usage
 
 Logs and errors management
-* unify and organize app & agent prefixes, event & agent names
 * agent-prefix maker
 * schematize app-cs-agent-bg messages to conform to a single logic
 * error proofing & console messages styling (debug mode?)

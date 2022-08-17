@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import { useTrackColorTheme } from '../hooks';
 import { isDarkThemeKeyword } from '../utils';
 
-const isInitKeywordDarkTheme = isDarkThemeKeyword(window?.Mu?.settings?.theme);
+export const ThemeContext = React.createContext(true); // fallback to dark theme
 
-export const ThemeContext = React.createContext(isInitKeywordDarkTheme);
 export const ThemeProvider = ({ children }) => {
-    const [isDarkTheme, setIsDarkTheme] = useState(isInitKeywordDarkTheme);
+    const [isDarkTheme, setIsDarkTheme] = useState(isDarkThemeKeyword(window?.Mu?.settings?.theme));
 
     useTrackColorTheme(setIsDarkTheme);
 

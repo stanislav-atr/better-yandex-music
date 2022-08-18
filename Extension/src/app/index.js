@@ -1,8 +1,8 @@
 /* eslint-disable no-console, no-undef */
 import { initApp } from './init-app';
-import { AGENT_NAMES, UNIQUE_APP_PREFIX } from '../common';
+import { AGENT_NAMES, UNIQUE_APP_ID } from '../common';
 
-window.addEventListener(`${UNIQUE_APP_PREFIX}|${AGENT_NAMES.START_APP}`, async (e) => {
+window.addEventListener(`${UNIQUE_APP_ID}|${AGENT_NAMES.START_APP}`, async (e) => {
     const { appParams } = e.detail.payload;
     await initApp(appParams);
 });

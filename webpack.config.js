@@ -8,7 +8,7 @@ export const webpackConfiguration = {
     mode: 'development',
     entry: {
         app: {
-            import: './Extension/src/app/index.jsx',
+            import: './Extension/src/app/index.js',
             filename: APP_BUNDLE_NAME,
         },
         background: {

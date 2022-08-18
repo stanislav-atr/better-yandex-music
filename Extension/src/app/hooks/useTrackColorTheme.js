@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { useEffect } from 'react';
 import { isDarkThemeKeyword } from '../utils';
+import { log } from '../../common/utils';
 
 export const useTrackColorTheme = (setIsDarkTheme) => {
     useEffect(() => {
@@ -16,6 +17,10 @@ export const useTrackColorTheme = (setIsDarkTheme) => {
                 return success;
             },
         };
-        window.Mu.settings = new Proxy(window.Mu.settings, handler);
+        try {
+            window.Mu.settings = new Proxy(window.Mu.settings, handler);
+        } catch (e) {
+            log('Failed to track color theme.', true, true);
+        }
     }, [setIsDarkTheme]);
 };

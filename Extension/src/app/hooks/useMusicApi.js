@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { getTrack, extractLyrics } from '../music-api';
 import { APP_MESSAGES } from '../constants';
+import { log } from '../../common/utils';
 import {
     addSeqListener,
     removeSeqListener,
@@ -9,7 +10,12 @@ import {
 export const useMusicApi = (stateSetter, lyricsWindowRef) => {
     // Add new track event listener
     const trackChangeHandler = async (track) => {
-        const trackData = await getTrack(track.id);
+        let trackData = {};
+        try {
+            trackData = await getTrack(track.id);
+        } catch (e) {
+            log('Failed to fetch track data.', true, true);
+        }
         const extractedString = extractLyrics(trackData);
         const lyrics = extractedString || APP_MESSAGES.LYRICS_NOT_AVAILABLE.VALUE;
 

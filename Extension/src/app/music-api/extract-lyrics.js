@@ -5,7 +5,7 @@
  * @return {string} track lyrics text
  */
 export const extractLyrics = (trackData) => {
-    const lyricsData = trackData.lyric;
+    const lyricsData = trackData?.lyric;
     if (!Array.isArray(lyricsData) || lyricsData.length === 0) {
         return '';
     }

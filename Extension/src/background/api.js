@@ -3,6 +3,7 @@ import { sessionStorage } from './storages';
 import { APP_BUNDLE_NAME } from '../../../app-config';
 import { SESSION_PARAMS, DEFAULT_APP_PARAMS } from './constants';
 import { AGENT_NAMES } from '../common/constants';
+import { log } from '../common/utils';
 
 const {
     CURRENT_MUSIC_TAB_ID,
@@ -29,21 +30,18 @@ export const api = (function () {
     const initSessionStorage = async (tabId) => {
         sessionStorage.init();
         sessionStorage.setSetting(CURRENT_MUSIC_TAB_ID, tabId);
-        // eslint-disable-next-line no-console
-        console.log(`SessionStorage initialized with id: ${tabId}`);
 
         while (!sessionStorage.getSetting(MUSIC_API_READY)) {
             // eslint-disable-next-line no-await-in-loop
             await getMusicApiStatus();
         }
+        log('Session storage is set.');
     };
 
     const getMusicApiStatus = async () => {
         const response = await agent.dispatch(GET_MUSIC_API_STATUS, {});
         const { result: musicApiStatus } = response[0];
         sessionStorage.setSetting(MUSIC_API_READY, !!musicApiStatus);
-        // eslint-disable-next-line no-console
-        console.log('Music API is ready!');
     };
 
     const initAction = () => {
@@ -60,8 +58,6 @@ export const api = (function () {
             const isPageReady = currentMusicTabId && musicApiReady;
 
             if (!isPageReady) {
-                // eslint-disable-next-line no-console
-                console.log('Music.Yandex page is not ready for app injection.');
                 return;
             }
 
@@ -79,6 +75,7 @@ export const api = (function () {
     };
 
     const init = async () => {
+        log('Initiating...');
         await chrome.storage.local.set({ appParams: DEFAULT_APP_PARAMS });
 
         chrome.webNavigation.onCompleted.addListener(async (details) => {
@@ -88,10 +85,12 @@ export const api = (function () {
             }
 
             await initSessionStorage(tabId);
-            agent.dispatch(APP_BUNDLE_NAME, {});
+            await agent.dispatch(APP_BUNDLE_NAME, {});
+            log('App is waiting for action click.');
         }, urlFilter);
 
         initAction();
+        log('Extension is ready!');
     };
 
     return {

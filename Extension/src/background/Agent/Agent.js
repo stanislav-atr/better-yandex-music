@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import { sessionStorage } from '../storages/SessionStorage.js';
 import { SESSION_PARAMS } from '../constants.js';
-
+import { log } from '../../common/utils';
 import {
-    UNIQUE_APP_PREFIX,
+    UNIQUE_APP_ID,
     AGENT_NAMES,
-} from '../../common/constants.js';
+} from '../../common/constants';
 
 const {
     GET_MUSIC_API_STATUS,
@@ -15,25 +15,20 @@ const {
 
 class Agent {
     constructor() {
-        /* eslint-disable no-console */
-        this[GET_MUSIC_API_STATUS] = async (agentPrefix) => {
+        this[GET_MUSIC_API_STATUS] = async () => {
             const musicApiStatus = window?.Seq?.isReady();
-            console.log(`${agentPrefix}: Music API status: ${musicApiStatus}`);
             return musicApiStatus;
         };
 
-        this[START_APP] = async (agentPrefix, payload) => {
-            const event = new CustomEvent(agentPrefix, { detail: payload });
-            console.log(`${agentPrefix}: Dispatching 'START_APP'.`);
+        this[START_APP] = async (eventName, payload) => {
+            const event = new CustomEvent(eventName, { detail: payload });
             dispatchEvent(event);
         };
 
-        this[CLOSE_APP] = (agentPrefix) => {
-            const event = new Event(agentPrefix);
-            console.log(`${agentPrefix}: Dispatching 'CLOSE_APP'.`);
+        this[CLOSE_APP] = (eventName) => {
+            const event = new Event(eventName);
             dispatchEvent(event);
         };
-        /* eslint-enable no-console */
     }
 
     /**
@@ -42,9 +37,6 @@ class Agent {
      * @returns {Object} scriptInjection object
      */
     prepareScriptInjection(agentName, tabId, payload) {
-        if (typeof agentName !== 'string') {
-            throw new Error('Invalid agent name is provided to prepareScriptInjection');
-        }
         const isFile = agentName.endsWith('.js');
 
         const scriptInjectionBase = {
@@ -60,8 +52,9 @@ class Agent {
         if (isFile) {
             scriptInjectionExecution = { files: [agentName] };
         } else {
+            const eventName = `${UNIQUE_APP_ID}|${agentName}`;
             scriptInjectionExecution = {
-                args: [`${UNIQUE_APP_PREFIX}|${agentName}`, payload || {}],
+                args: [eventName, payload || {}],
                 func: this[agentName],
             };
         }
@@ -83,9 +76,6 @@ class Agent {
         if (!currentMusicTabId) {
             throw new Error('There is no target tab at the moment of dispatch.');
         }
-        if (typeof callback !== 'undefined' && typeof callback !== 'function') {
-            throw new Error('Incorrect callback argument was given to dispatcher.');
-        }
 
         const scriptInjection = this.prepareScriptInjection(agentName, currentMusicTabId, payload);
 
@@ -93,7 +83,7 @@ class Agent {
         try {
             result = await chrome.scripting.executeScript(scriptInjection, callback);
         } catch (e) {
-            throw new Error(`${UNIQUE_APP_PREFIX}|failed to execute ${agentName}: \n ${e}`);
+            log(`Could not dispatch agent. ${agentName}`, true);
         }
         return result;
     }

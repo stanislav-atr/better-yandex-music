@@ -1,6 +1,10 @@
 Now
 * bug with app not opening/closing on action click (sw)
-* unify and organize app & agent prefixes, event & agent names
+
+* revise Seq/Mu api usage
+
+* improve app messages layout
+* extension icons off-ready-running for action
 
 Next
 * manage sourcemaps in build (dedicated folder + resolved by chrome)
@@ -9,7 +13,6 @@ Refactor background and cs
 Refactor app using react profiler
 * messenger class for app?
 * revise class and component names
-* revise Seq/Mu api usage
 
 Logs and errors management
 * agent-prefix maker
@@ -17,8 +20,6 @@ Logs and errors management
 * error proofing & console messages styling (debug mode?)
 
 Visual styling matters
-* improve app messages layout
-* extension icons off-ready-running for action
 * improve styling params overall
 
 Sanitize code and css
